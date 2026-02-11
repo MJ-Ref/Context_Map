@@ -1,0 +1,126 @@
+#!/usr/bin/env bash
+# check-structure.sh — Validates that all required files and directories exist
+# Usage: scripts/check-structure.sh [--verbose]
+
+set -euo pipefail
+
+VERBOSE="${1:-}"
+PASS=0
+FAIL=0
+ERRORS=()
+
+check_exists() {
+  local path="$1"
+  local type="$2" # "file" or "dir"
+
+  if [ "$type" = "dir" ] && [ -d "$path" ]; then
+    PASS=$((PASS + 1))
+    [ "$VERBOSE" = "--verbose" ] && echo "  ✓ $path"
+  elif [ "$type" = "file" ] && [ -f "$path" ]; then
+    PASS=$((PASS + 1))
+    [ "$VERBOSE" = "--verbose" ] && echo "  ✓ $path"
+  else
+    FAIL=$((FAIL + 1))
+    ERRORS+=("  ✗ Missing $type: $path")
+    [ "$VERBOSE" = "--verbose" ] && echo "  ✗ Missing $type: $path"
+  fi
+}
+
+echo "Checking repository structure..."
+echo ""
+
+# Root files
+echo "Root files:"
+check_exists "README.md" "file"
+check_exists "AGENTS.md" "file"
+check_exists "CLAUDE.md" "file"
+check_exists "ARCHITECTURE.md" "file"
+check_exists ".gitignore" "file"
+check_exists "LICENSE" "file"
+
+# Agent entry points
+echo "Agent entry points:"
+check_exists ".cursorrules" "file"
+check_exists ".cursor/rules/global.mdc" "file"
+check_exists ".github/copilot-instructions.md" "file"
+check_exists ".claude/settings.json" "file"
+
+# Docs structure
+echo "Documentation:"
+check_exists "docs" "dir"
+check_exists "docs/_INDEX.md" "file"
+check_exists "docs/architecture" "dir"
+check_exists "docs/architecture/OVERVIEW.md" "file"
+check_exists "docs/architecture/DEPENDENCY_RULES.md" "file"
+check_exists "docs/architecture/ADR" "dir"
+check_exists "docs/architecture/ADR/000-template.md" "file"
+check_exists "docs/golden-rules" "dir"
+check_exists "docs/golden-rules/PRINCIPLES.md" "file"
+check_exists "docs/golden-rules/CODING_STANDARDS.md" "file"
+check_exists "docs/quality" "dir"
+check_exists "docs/quality/QUALITY_SCORECARD.md" "file"
+check_exists "docs/quality/TECH_DEBT_REGISTER.md" "file"
+check_exists "docs/workflows" "dir"
+check_exists "docs/workflows/DEVELOPMENT.md" "file"
+check_exists "docs/workflows/PR_REVIEW.md" "file"
+check_exists "docs/workflows/TESTING.md" "file"
+check_exists "docs/workflows/DOC_GARDENING.md" "file"
+check_exists "docs/agent-guide" "dir"
+check_exists "docs/agent-guide/ONBOARDING.md" "file"
+check_exists "docs/agent-guide/COMMON_TASKS.md" "file"
+check_exists "docs/session" "dir"
+check_exists "docs/session/SESSION_HANDOFF.md" "file"
+
+# Plans structure
+echo "Plans:"
+check_exists "plans" "dir"
+check_exists "plans/_INDEX.md" "file"
+check_exists "plans/_TEMPLATE.md" "file"
+check_exists "plans/active" "dir"
+check_exists "plans/completed" "dir"
+
+# Guide structure
+echo "Guide:"
+check_exists "guide" "dir"
+check_exists "guide/README.md" "file"
+check_exists "guide/01-why-agent-legibility.md" "file"
+check_exists "guide/02-progressive-disclosure.md" "file"
+check_exists "guide/03-multi-agent-setup.md" "file"
+check_exists "guide/04-execution-plans.md" "file"
+check_exists "guide/05-quality-and-enforcement.md" "file"
+check_exists "guide/06-doc-gardening.md" "file"
+check_exists "guide/07-session-handoffs.md" "file"
+check_exists "guide/08-building-skills.md" "file"
+
+# Skills structure
+echo "Skills:"
+check_exists ".claude/skills/context-map" "dir"
+check_exists ".claude/skills/context-map/SKILL.md" "file"
+check_exists ".claude/skills/context-map/references" "dir"
+check_exists ".claude/skills/context-map/references/directory-spec.md" "file"
+check_exists ".claude/skills/context-map/references/checklist.md" "file"
+check_exists ".claude/skills/context-map/references/remediation.md" "file"
+check_exists ".claude/skills/session-handoff" "dir"
+check_exists ".claude/skills/session-handoff/SKILL.md" "file"
+check_exists ".claude/skills/session-handoff/references" "dir"
+check_exists ".claude/skills/session-handoff/references/handoff-template.md" "file"
+
+# Scripts
+echo "Scripts:"
+check_exists "scripts/check-structure.sh" "file"
+check_exists "scripts/check-doc-freshness.sh" "file"
+check_exists "scripts/check-agent-files.sh" "file"
+
+echo ""
+echo "Results: $PASS passed, $FAIL failed"
+
+if [ ${#ERRORS[@]} -gt 0 ]; then
+  echo ""
+  echo "Failures:"
+  for err in "${ERRORS[@]}"; do
+    echo "$err"
+  done
+  exit 1
+else
+  echo "All structure checks passed."
+fi

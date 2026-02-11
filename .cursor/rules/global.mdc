@@ -1,0 +1,71 @@
+---
+description: Global rules for all Context_Map files — route to docs/, enforce single source of truth
+globs: ["**/*"]
+---
+
+# Context_Map — Cursor Agent Rules
+
+> **Purpose:** Configuration and routing for Cursor AI sessions.
+> Read this first, then follow the routing table to `docs/`.
+
+## Project Overview
+
+**Context_Map** is an agent-first repository template and guide. It demonstrates
+the patterns it teaches. `docs/` is the system of record. All agent entry files
+are routing tables — they point to docs, they never duplicate content.
+
+## Routing Table
+
+| I need to...                        | Go to                                  |
+|-------------------------------------|----------------------------------------|
+| Understand the architecture         | `docs/architecture/OVERVIEW.md`        |
+| Learn the dependency rules          | `docs/architecture/DEPENDENCY_RULES.md`|
+| See non-negotiable principles       | `docs/golden-rules/PRINCIPLES.md`      |
+| Follow coding standards             | `docs/golden-rules/CODING_STANDARDS.md`|
+| Check quality scorecard             | `docs/quality/QUALITY_SCORECARD.md`    |
+| Review tech debt                    | `docs/quality/TECH_DEBT_REGISTER.md`   |
+| Follow development workflow         | `docs/workflows/DEVELOPMENT.md`        |
+| Review a PR                         | `docs/workflows/PR_REVIEW.md`          |
+| Write or run tests                  | `docs/workflows/TESTING.md`            |
+| Update documentation                | `docs/workflows/DOC_GARDENING.md`      |
+| Get onboarded as a new agent        | `docs/agent-guide/ONBOARDING.md`       |
+| Do common tasks                     | `docs/agent-guide/COMMON_TASKS.md`     |
+| Hand off a session                  | `docs/session/SESSION_HANDOFF.md`      |
+| Find all docs (master index)        | `docs/_INDEX.md`                       |
+| Create or review an execution plan  | `plans/_INDEX.md`                      |
+| Record an architecture decision     | `docs/architecture/ADR/000-template.md`|
+
+## Key Rules
+
+1. **`docs/` is the system of record.** All operational truth lives there. Never
+   duplicate content into agent entry files or code comments.
+2. **`guide/` is read-only.** It explains the patterns. Never modify it.
+3. **`plans/` are temporal.** They move from `active/` to `completed/`. Docs are evergreen.
+4. **Update freshness dates** when you modify any doc: `<!-- reviewed: YYYY-MM-DD -->`.
+5. **Run validation** before committing: `scripts/check-structure.sh` and
+   `scripts/check-agent-files.sh`.
+6. **Record architectural decisions** in `docs/architecture/ADR/` using the template.
+
+## Session Protocol
+
+1. **Start:** Read `docs/session/SESSION_HANDOFF.md` for prior context
+2. **Work:** Follow `docs/workflows/DEVELOPMENT.md` for all changes
+3. **Quality:** Check work against `docs/quality/QUALITY_SCORECARD.md`
+4. **End:** Update `docs/session/SESSION_HANDOFF.md` before closing
+
+## Commit Conventions
+
+- Use conventional commits: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `test:`
+- Run `scripts/check-structure.sh` before committing
+- Update `<!-- reviewed: YYYY-MM-DD -->` tags on any modified docs
+
+## File Conventions
+
+- Markdown for all documentation
+- Kebab-case for directories, UPPER_SNAKE_CASE for doc filenames
+- Every doc starts with an H1 heading and a purpose blockquote
+- Tables for navigation, not prose
+
+---
+
+*This file is a routing table. All operational truth lives in `docs/`.*

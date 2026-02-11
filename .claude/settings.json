@@ -1,0 +1,12 @@
+{
+  "skills": {
+    "context-map": {
+      "path": ".claude/skills/context-map/SKILL.md",
+      "description": "Scaffold or audit a Context_Map repository structure"
+    },
+    "session-handoff": {
+      "path": ".claude/skills/session-handoff/SKILL.md",
+      "description": "Generate a session handoff document for continuity"
+    }
+  }
+}

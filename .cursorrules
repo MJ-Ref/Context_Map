@@ -1,0 +1,22 @@
+# .cursorrules — Context_Map Project
+
+This is a **Context_Map** project — an agent-first repository template
+that demonstrates every pattern it teaches.
+
+## Where to Find Rules
+
+This file exists for backward compatibility. The full rule set lives in
+the modern MDC format:
+
+- **Full Cursor rules:** `.cursor/rules/global.mdc`
+- **Universal agent instructions:** `AGENTS.md`
+- **System of record:** `docs/` (start at `docs/_INDEX.md`)
+- **Execution plans:** `plans/_INDEX.md`
+
+## Quick Constraints
+
+1. `docs/` is the system of record — route there, never duplicate
+2. `guide/` is read-only — never modify educational content
+3. Update `<!-- reviewed: YYYY-MM-DD -->` on any doc you change
+4. Run `scripts/check-structure.sh` before committing
+5. Use conventional commits: `feat:`, `fix:`, `docs:`, `chore:`
