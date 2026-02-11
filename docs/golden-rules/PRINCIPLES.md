@@ -13,7 +13,7 @@ Every pattern this project teaches is demonstrated in the repo itself. When clon
 
 ## 2. Single Source of Truth
 
-Content exists in exactly one place. Agent entry files (AGENTS.md, CLAUDE.md, .cursorrules, copilot-instructions.md) are routing tables — they point to `docs/`, they never duplicate it.
+Content exists in exactly one place. Agent entry files (AGENTS.md, CLAUDE.md, CODEX.md, .cursorrules, copilot-instructions.md) are routing tables — they point to `docs/`, they never duplicate it.
 
 **Implication:** If you find the same information in two places, delete one and replace it with a pointer.
 

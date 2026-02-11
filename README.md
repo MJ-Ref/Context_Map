@@ -12,7 +12,7 @@ Context_Map is a repository template that structures projects for AI agent produ
 - **Docs as system of record** — documentation drives development, not the reverse
 - **Execution plans as artifacts** — structured plans with lifecycle states
 - **Quality scoring** — automated enforcement of standards
-- **Multi-agent support** — one truth, four entry points (Claude Code, Cursor, Copilot, universal)
+- **Multi-agent support** — one truth, five entry points (Claude Code, Codex, Cursor, Copilot, universal)
 
 ## Who Is This For?
 
@@ -59,6 +59,7 @@ Start with `guide/README.md` for the educational content, or browse the chapters
 Context_Map/
 ├── AGENTS.md              # Universal agent entry point (routing table)
 ├── CLAUDE.md              # Claude Code entry point (routing table)
+├── CODEX.md               # OpenAI Codex entry point (routing table)
 ├── ARCHITECTURE.md        # Architecture summary → docs/architecture/
 ├── docs/                  # THE SYSTEM OF RECORD (operational, mutable)
 │   ├── _INDEX.md          # Master navigation with freshness dates
@@ -74,6 +75,7 @@ Context_Map/
 ├── guide/                 # Educational content (read-only, immutable)
 ├── scripts/               # Validation and enforcement
 ├── .claude/               # Claude Code config and skills
+├── .codex/                # OpenAI Codex config
 ├── .cursor/               # Cursor rules
 └── .github/               # GitHub Copilot instructions
 ```

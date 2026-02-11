@@ -40,10 +40,12 @@ check_exists "LICENSE" "file"
 
 # Agent entry points
 echo "Agent entry points:"
+check_exists "CODEX.md" "file"
 check_exists ".cursorrules" "file"
 check_exists ".cursor/rules/global.mdc" "file"
 check_exists ".github/copilot-instructions.md" "file"
 check_exists ".claude/settings.json" "file"
+check_exists ".codex/setup.sh" "file"
 
 # Docs structure
 echo "Documentation:"

@@ -14,7 +14,7 @@ tangled ownership. They are enforced by convention and validated by scripts.
                   ┌─────────────────┐
                   │  Entry Files    │
                   │  (CLAUDE.md,    │
-                  │   README.md)    │
+                  │  CODEX.md, etc) │
                   └────────┬────────┘
                            │ route to (one-way)
                            v

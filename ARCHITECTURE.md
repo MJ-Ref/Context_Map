@@ -19,7 +19,7 @@ Code and configuration
 ## Key Architectural Principles
 
 1. **The repo IS the guide** — it demonstrates every pattern it teaches
-2. **Four entry points, one truth** — all agent files route to `docs/`, never duplicate
+2. **Five entry points, one truth** — all agent files route to `docs/`, never duplicate
 3. **docs/ vs guide/** — operational (mutable) vs educational (immutable)
 4. **Plans are temporal** — separate from evergreen documentation
 5. **Progressive disclosure** — ~100-line entry → index → detailed docs → code

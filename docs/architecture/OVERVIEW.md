@@ -36,18 +36,19 @@ so agents can reserve context for the work that matters.
 
 ---
 
-## Four Agent Entry Points
+## Five Agent Entry Points
 
-Four files sit at the repository root (or in `.claude/`). Each serves a
-different arrival context, but all route to the **same** authoritative content
-in `docs/`.
+Multiple files sit at the repository root (or in agent-specific directories).
+Each serves a different arrival context, but all route to the **same**
+authoritative content in `docs/`.
 
 | Entry Point | Audience | Purpose |
 |---|---|---|
+| `AGENTS.md` | Any AI agent (universal) | Universal routing table for all agents |
 | `CLAUDE.md` | Claude Code agent | Orientation, constraints, pointers to docs/ |
-| `README.md` | Humans on GitHub | Project overview, quick-start, links to docs/ |
-| `.claude/settings.json` | Claude Code runtime | Permissions and tool configuration |
-| `.claude/skills/*.md` | Claude Code skill system | Task-specific playbooks referencing docs/ |
+| `CODEX.md` | OpenAI Codex agent | Orientation, constraints, pointers to docs/ |
+| `.cursorrules` | Cursor agent | Quick constraints, routes to `.cursor/rules/global.mdc` |
+| `.github/copilot-instructions.md` | GitHub Copilot | Code generation guidance, routes to docs/ |
 
 The critical invariant: **entry files never define policy**. They summarize and
 route. The single source of truth for any rule, standard, or process lives in

@@ -13,6 +13,7 @@ ERRORS=()
 AGENT_FILES=(
   "AGENTS.md"
   "CLAUDE.md"
+  "CODEX.md"
   ".cursorrules"
   ".cursor/rules/global.mdc"
   ".github/copilot-instructions.md"

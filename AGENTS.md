@@ -43,6 +43,7 @@ scripts/        → Enforcement and validation scripts
 
 1. **docs/ is the system of record.** All operational truth lives there. Never duplicate content into agent entry files.
 2. **guide/ is read-only.** It explains the patterns. Agents never modify it.
+6. **Five agent entry points** (AGENTS.md, CLAUDE.md, CODEX.md, .cursorrules, copilot-instructions.md) all route to `docs/`.
 3. **plans/ are temporal.** They move from `active/` to `completed/`. Docs are evergreen.
 4. **Update freshness dates** when you modify any doc (format: `<!-- reviewed: YYYY-MM-DD -->`).
 5. **Run validation** before committing: `scripts/check-structure.sh`, `scripts/check-agent-files.sh`.
