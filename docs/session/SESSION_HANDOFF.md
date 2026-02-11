@@ -13,20 +13,22 @@
 
 ## Session Summary
 
-Initial repository setup. Created the foundational agent-guide documents and session handoff structure. This is the first session in a new Context_Map instance.
+Full repository build-out and internal consistency audit. Created all 45+ files across all content zones, then fixed internal drift between skill references, docs, and actual repo structure.
 
 ## Work Completed
 
-- Created `docs/agent-guide/ONBOARDING.md` — agent orientation guide
-- Created `docs/agent-guide/COMMON_TASKS.md` — task recipes for common operations
-- Created `docs/session/SESSION_HANDOFF.md` — this handoff document
+- Created complete repository structure: root entry files, docs/, plans/, guide/, scripts/, .claude/, .codex/, .cursor/, .github/
+- Five agent entry points: AGENTS.md, CLAUDE.md, CODEX.md, .cursorrules, .github/copilot-instructions.md
+- Full docs/ system of record: architecture, golden-rules, quality, workflows, agent-guide, session
+- Eight guide/ chapters covering all Context_Map patterns
+- Three validation scripts: check-structure.sh, check-doc-freshness.sh, check-agent-files.sh
+- Two Claude Code skills: /context-map (scaffold + audit), /session-handoff
+- Plans infrastructure: _INDEX.md, _TEMPLATE.md, active/, completed/
+- Internal consistency audit: fixed all path drift, freshness threshold conflicts, math bugs, and numbering issues
 
 ## Work In Progress
 
-- Root agent file (`AGENTS.md` or `CLAUDE.md`) has not been created yet
-- `docs/plans/` directory structure and templates not yet established
-- `docs/decisions/` directory structure and index not yet established
-- Validation scripts (`scripts/`) not yet written
+- None at this time.
 
 ## Blocked Items
 
@@ -34,22 +36,23 @@ Initial repository setup. Created the foundational agent-guide documents and ses
 
 ## Next Steps
 
-1. Create the root agent file (`AGENTS.md` or `CLAUDE.md`) with the master routing table
-2. Set up `docs/plans/` with `templates/`, `active/`, `completed/` subdirectories and `_INDEX.md`
-3. Set up `docs/decisions/` with `_INDEX.md` and an ADR template
-4. Write validation scripts: `validate-docs.sh`, `check-freshness.sh`, `validate-plans.sh`
-5. Populate the `guide/` directory with the static methodology reference
-6. Initialize `src/` with a starter project structure if applicable
+1. Test `/context-map audit` on the repo itself to validate the skill works end-to-end
+2. Test `/context-map scaffold` on a fresh directory
+3. Consider adding CI workflow (`.github/workflows/`) to run validation scripts on PRs
+4. Populate the first real execution plan in `plans/active/` if there is upcoming work
 
 ## Key Decisions Made
 
-- Adopted the three-file agent-guide structure: ONBOARDING.md for orientation, COMMON_TASKS.md for recipes, SESSION_HANDOFF.md for live state
-- Session handoff is an overwrite-in-place document; git history preserves previous states rather than accumulating sections in the file
+- Five agent entry points (universal AGENTS.md + four platform-specific)
+- 30-day freshness threshold as the default across all docs and scripts
+- `<!-- reviewed: YYYY-MM-DD -->` as the canonical freshness tag format
+- Plans live at top-level `plans/` (not under `docs/`); ADRs live at `docs/architecture/ADR/`
+- 150-line max recommended for agent entry files
+- Scorecard weights: Documentation 30%, Structure 25%, Plans 20%, Code Quality 25%
 
 ## Open Questions
 
-- Should the root agent file be `AGENTS.md` or `CLAUDE.md`? Depends on whether the repo targets a specific agent platform or aims to be agent-agnostic.
-- What is the initial application domain for `src/`? Waiting on user direction.
+- None at this time.
 
 ---
 

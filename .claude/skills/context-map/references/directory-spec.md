@@ -10,11 +10,14 @@ Legend: **(R)** = required, **(O)** = optional.
 ## Root Files
 
 ```
-AGENTS.md            (R)  Agent router. Points all AI agents to docs/. Must not contain inline docs.
-CLAUDE.md            (R)  Claude-specific entry point. Routes to docs/ with Claude-specific hints.
-ARCHITECTURE.md      (R)  High-level architecture overview. May link to docs/architecture/ for detail.
-.cursorrules         (R)  Cursor agent entry point. Routes to docs/ with Cursor-specific hints.
+AGENTS.md            (R)  Universal agent router. Points all AI agents to docs/. Must not contain inline docs.
+CLAUDE.md            (R)  Claude Code entry point. Routes to docs/ with Claude-specific hints.
+CODEX.md             (R)  OpenAI Codex entry point. Routes to docs/ with Codex-specific hints.
+ARCHITECTURE.md      (R)  High-level architecture overview. Links to docs/architecture/ for detail.
+README.md            (R)  Human-facing project overview.
+LICENSE              (R)  Project license.
 .gitignore           (R)  Standard gitignore for the project language/framework.
+.cursorrules         (R)  Cursor agent entry point. Routes to .cursor/rules/global.mdc and docs/.
 ```
 
 ## `.github/`
@@ -22,8 +25,13 @@ ARCHITECTURE.md      (R)  High-level architecture overview. May link to docs/arc
 ```
 .github/
   copilot-instructions.md   (R)  GitHub Copilot entry point. Routes to docs/.
-  CODEOWNERS                 (O)  Code ownership mapping.
-  workflows/                 (O)  CI/CD workflow definitions.
+```
+
+## `.codex/`
+
+```
+.codex/
+  setup.sh                  (R)  Codex sandbox setup script.
 ```
 
 ## `docs/`
@@ -32,18 +40,26 @@ ARCHITECTURE.md      (R)  High-level architecture overview. May link to docs/arc
 docs/
   _INDEX.md                  (R)  Master index listing every doc with one-line summary.
   architecture/              (R)  Architecture documentation directory.
-    ARCHITECTURE.md          (R)  Detailed architecture document. Freshness date required.
-  onboarding/                (R)  Onboarding materials for new contributors.
-    ONBOARDING.md            (R)  Getting-started guide. Freshness date required.
-  runbooks/                  (R)  Operational runbooks directory.
-    RUNBOOK_TEMPLATE.md      (R)  Template for new runbooks. Freshness date required.
-  session/                   (R)  Session continuity documents.
-    SESSION_HANDOFF.md       (R)  Active session handoff state. Updated each session.
-  adr/                       (O)  Architecture Decision Records.
-    _TEMPLATE.md             (O)  ADR template.
+    OVERVIEW.md              (R)  Detailed architecture document. Freshness tag required.
+    DEPENDENCY_RULES.md      (R)  Layering and dependency constraints. Freshness tag required.
+    ADR/                     (R)  Architecture Decision Records.
+      000-template.md        (R)  ADR template.
+  golden-rules/              (R)  Standards and conventions directory.
+    PRINCIPLES.md            (R)  Non-negotiable design principles. Freshness tag required.
+    CODING_STANDARDS.md      (R)  Coding and documentation standards. Freshness tag required.
   quality/                   (R)  Quality tracking directory.
-    QUALITY_SCORECARD.md     (R)  Scored quality checklist. Freshness date required.
-    TECH_DEBT_REGISTER.md    (R)  Technical debt tracking. Freshness date required.
+    QUALITY_SCORECARD.md     (R)  Scored quality checklist. Freshness tag required.
+    TECH_DEBT_REGISTER.md    (R)  Technical debt tracking. Freshness tag required.
+  workflows/                 (R)  Process documentation directory.
+    DEVELOPMENT.md           (R)  Development workflow. Freshness tag required.
+    PR_REVIEW.md             (R)  PR review process. Freshness tag required.
+    TESTING.md               (R)  Testing strategy. Freshness tag required.
+    DOC_GARDENING.md         (R)  Doc maintenance process. Freshness tag required.
+  agent-guide/               (R)  Agent orientation directory.
+    ONBOARDING.md            (R)  Agent onboarding guide. Freshness tag required.
+    COMMON_TASKS.md          (R)  Step-by-step task recipes. Freshness tag required.
+  session/                   (R)  Session continuity directory.
+    SESSION_HANDOFF.md       (R)  Active session handoff state. Updated each session.
 ```
 
 ## `plans/`
@@ -52,37 +68,53 @@ docs/
 plans/
   _INDEX.md                  (R)  Plan index listing all plans with status.
   _TEMPLATE.md               (R)  Template for new plans. Includes status field.
-  *.md                       (O)  Individual plan documents. Each must have a status field.
+  active/                    (R)  Plans currently being executed.
+  completed/                 (R)  Archived completed plans.
 ```
 
-Allowed plan statuses: `draft`, `active`, `completed`, `abandoned`.
+Allowed plan statuses: `Draft`, `Active`, `Completed`, `Abandoned`.
 
 ## `guide/`
 
 ```
 guide/
-  CONTRIBUTING.md            (R)  Contribution guidelines. Freshness date required.
-  STYLE_GUIDE.md             (R)  Code and documentation style guide. Freshness date required.
+  README.md                  (R)  Guide introduction and chapter listing.
+  01-why-agent-legibility.md (R)  Why agent legibility matters.
+  02-progressive-disclosure.md (R)  Progressive disclosure pattern.
+  03-multi-agent-setup.md    (R)  Multi-agent entry point setup.
+  04-execution-plans.md      (R)  Execution plans as artifacts.
+  05-quality-and-enforcement.md (R)  Quality scoring and enforcement.
+  06-doc-gardening.md        (R)  Documentation maintenance.
+  07-session-handoffs.md     (R)  Session continuity pattern.
+  08-building-skills.md      (R)  Building agent skills.
 ```
+
+The `guide/` directory is **educational and isolated**. Agents never modify it.
+Nothing in `docs/` or `plans/` depends on `guide/`.
 
 ## `scripts/`
 
 ```
-scripts/                     (R)  Automation and tooling scripts directory.
-  *.sh / *.py / *.ts         (O)  Individual scripts. Each should have a header comment.
+scripts/
+  check-structure.sh         (R)  Validates all required files and directories exist.
+  check-doc-freshness.sh     (R)  Checks freshness tags on all docs.
+  check-agent-files.sh       (R)  Verifies agent entry points route to docs/.
 ```
 
-The `scripts/` directory must exist even if initially empty. It is the canonical
-location for project automation including linting, scaffolding, and CI helpers.
+Scripts are **read-only validators**. They report violations but never modify files.
 
 ## `.claude/`
 
 ```
 .claude/
+  settings.json              (R)  Claude Code project settings.
   skills/                    (O)  Claude Code skill definitions.
-    context-map/             (O)  Context Map skill and references.
-    session-handoff/         (O)  Session handoff skill and references.
-  settings.json              (O)  Claude Code project settings.
+    context-map/             (O)  Context Map scaffold and audit skill.
+      SKILL.md               (O)  Skill definition.
+      references/            (O)  Skill reference files.
+    session-handoff/         (O)  Session handoff skill.
+      SKILL.md               (O)  Skill definition.
+      references/            (O)  Skill reference files.
 ```
 
 ## `.cursor/`
@@ -90,19 +122,20 @@ location for project automation including linting, scaffolding, and CI helpers.
 ```
 .cursor/
   rules/                     (O)  Cursor-specific rule files.
+    global.mdc               (O)  Global Cursor rules.
 ```
 
 ---
 
 ## Constraints
 
-- **Freshness dates**: Every document under `docs/`, `guide/`, and `plans/` must include
-  a `Last Updated: YYYY-MM-DD` line within the first 10 lines.
-- **No inline duplication**: Agent entry points (`AGENTS.md`, `CLAUDE.md`, `.cursorrules`,
-  `copilot-instructions.md`) must route to `docs/` and must not duplicate documentation
-  content. Maximum length for these files is 40 lines.
+- **Freshness tags**: Every document under `docs/` must include a
+  `<!-- reviewed: YYYY-MM-DD -->` tag within the first five lines.
+- **No inline duplication**: Agent entry points (`AGENTS.md`, `CLAUDE.md`, `CODEX.md`,
+  `.cursorrules`, `.github/copilot-instructions.md`) must route to `docs/` and must not
+  duplicate documentation content. Maximum recommended length for these files is 150 lines.
 - **Index completeness**: `docs/_INDEX.md` must reference every `.md` file under `docs/`.
-  `plans/_INDEX.md` must reference every `.md` file under `plans/` (excluding itself and
+  `plans/_INDEX.md` must reference every plan file under `plans/` (excluding itself and
   the template).
-- **Plan status**: Every plan file in `plans/` (excluding `_INDEX.md` and `_TEMPLATE.md`)
-  must contain a `Status:` line with a valid status value.
+- **Plan status**: Every plan file in `plans/active/` and `plans/completed/` must contain
+  a `Status:` line with a valid status value.

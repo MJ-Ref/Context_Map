@@ -12,10 +12,10 @@ Step-by-step fixes for common audit failures, organized by category.
 
 1. Create all missing directories:
    ```bash
-   mkdir -p docs/{architecture,onboarding,runbooks,session,quality} plans guide scripts .github
+   mkdir -p docs/{architecture/ADR,golden-rules,quality,workflows,agent-guide,session} plans/{active,completed} guide scripts .github .codex
    ```
-2. Create each missing file with a title heading, `Last Updated: YYYY-MM-DD` set
-   to today, and a one-line placeholder.
+2. Create each missing file with a title heading, `<!-- reviewed: YYYY-MM-DD -->` tag
+   set to today, and a one-line placeholder.
 3. Re-run `/context-map audit` to confirm.
 
 ---
@@ -33,34 +33,37 @@ documentation that should live in `docs/`.
    # Agent Entry Point
    All project documentation lives under `docs/`. Start with:
    - [Index](docs/_INDEX.md)
-   - [Architecture](docs/architecture/ARCHITECTURE.md)
-   - [Onboarding](docs/onboarding/ONBOARDING.md)
+   - [Architecture](docs/architecture/OVERVIEW.md)
+   - [Onboarding](docs/agent-guide/ONBOARDING.md)
    ```
-3. Keep each file to 40 lines or fewer.
+3. Keep each file to 150 lines or fewer.
 4. Move displaced content to the appropriate file under `docs/`.
+5. Ensure all five entry points exist: `AGENTS.md`, `CLAUDE.md`, `CODEX.md`,
+   `.cursorrules`, `.github/copilot-instructions.md`.
 
 ---
 
 ## Stale Documentation
 
-**Problem:** Documents have a `Last Updated` date older than 30 days.
+**Problem:** Documents have a `<!-- reviewed: -->` date older than 30 days.
 
 **Fix:**
 
 1. Review each stale document for accuracy against current project state.
 2. Update content as needed.
-3. Set the `Last Updated:` line to today's date.
+3. Set the `<!-- reviewed: YYYY-MM-DD -->` tag to today's date.
 4. If a document is no longer relevant, delete it and remove its `_INDEX.md` entry.
 
 ---
 
-## Missing Freshness Dates
+## Missing Freshness Tags
 
-**Problem:** Documents lack a `Last Updated:` line in their first 10 lines.
+**Problem:** Documents lack a `<!-- reviewed: YYYY-MM-DD -->` tag in their first five lines.
 
 **Fix:**
 
-1. Add `Last Updated: YYYY-MM-DD` immediately after the title heading.
+1. Add `<!-- reviewed: YYYY-MM-DD -->` immediately after the title heading (within the
+   first five lines).
 2. Use today's date if the content is current. Otherwise use the last git commit date:
    ```bash
    git log -1 --format="%as" -- path/to/file.md
@@ -74,12 +77,12 @@ documentation that should live in `docs/`.
 
 **Fix:**
 
-1. Create the file under `docs/quality/` with a `Last Updated:` date.
-2. For the scorecard, add at least one scored row:
+1. Create the file under `docs/quality/` with a `<!-- reviewed: YYYY-MM-DD -->` tag.
+2. For the scorecard, add at least one scored dimension:
    ```markdown
-   | Category       | Score | Notes             |
+   | Dimension      | Score | Notes             |
    |----------------|-------|-------------------|
-   | Test Coverage  | 7/10  | Unit tests at 72% |
+   | Documentation  | 4     | Two docs aging    |
    ```
 3. For the debt register, add at least one tracked item:
    ```markdown
@@ -97,11 +100,12 @@ index is incomplete.
 
 **Fix:**
 
-1. Ensure `plans/_TEMPLATE.md` includes `Status: draft` and section headings
+1. Ensure `plans/_TEMPLATE.md` includes `Status: Draft` and section headings
    for Objective, Approach, Tasks, and Success Criteria.
 2. Add or correct the `Status:` line in each plan file. Valid values:
-   `draft`, `active`, `completed`, `abandoned`.
+   `Draft`, `Active`, `Completed`, `Abandoned`.
 3. Update `plans/_INDEX.md` to list every plan file with its current status.
+4. Active plans live in `plans/active/`. Completed plans move to `plans/completed/`.
 
 ---
 
@@ -115,4 +119,4 @@ index is incomplete.
    session-handoff skill template.
 2. If outdated, run `/session-handoff` to regenerate from current context.
 3. Ensure it contains at minimum: summary, next steps, and files modified.
-4. Set `Last Updated:` to today's date.
+4. Update the `<!-- reviewed: YYYY-MM-DD -->` tag to today's date.

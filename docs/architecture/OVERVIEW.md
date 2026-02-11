@@ -16,7 +16,7 @@ information model where each level reveals more detail only when needed.
 
 ```
 Entry Files          Index              Docs               Code
-(CLAUDE.md,       (docs/INDEX.md)    (docs/*/*.md)       (scripts/, src/)
+(CLAUDE.md,       (docs/_INDEX.md)   (docs/*/*.md)       (scripts/)
  README.md, ...)
       │                 │                  │                   │
       │  route to       │  enumerates      │  defines          │
@@ -26,7 +26,7 @@ Entry Files          Index              Docs               Code
 ```
 
 An agent reading `CLAUDE.md` gets orientation in seconds. If it needs detail, it
-follows a pointer to `docs/INDEX.md`. From there it navigates to the specific
+follows a pointer to `docs/_INDEX.md`. From there it navigates to the specific
 document that answers its question. Code is the last resort, not the first stop.
 
 This is not a convenience — it is a **load-bearing design decision**. Agents
@@ -66,11 +66,13 @@ purpose, mutability model, and audience.
 
 ```
 docs/
-  INDEX.md                  # Master navigation file
+  _INDEX.md                 # Master navigation file
   architecture/             # System design and ADRs
   golden-rules/             # Standards, conventions, policies
-  how-to/                   # Procedural guides for common tasks
-  reference/                # Lookup tables, glossaries, config docs
+  quality/                  # Scorecard and tech debt tracking
+  workflows/                # Development, PR, testing, doc processes
+  agent-guide/              # Onboarding and common task recipes
+  session/                  # Session handoff state
 ```
 
 This is the **operational core**. Content here governs how the project is built,
@@ -85,11 +87,15 @@ has drifted beyond a configurable threshold. Staleness is a bug.
 
 ```
 guide/
-  PHILOSOPHY.md             # Why agent-first development matters
-  GETTING_STARTED.md        # First-time walkthrough
-  PATTERNS.md               # Reusable patterns with examples
-  ANTI_PATTERNS.md          # Common mistakes and why they fail
-  FAQ.md                    # Frequently asked questions
+  README.md                 # Guide introduction and chapter listing
+  01-why-agent-legibility.md
+  02-progressive-disclosure.md
+  03-multi-agent-setup.md
+  04-execution-plans.md
+  05-quality-and-enforcement.md
+  06-doc-gardening.md
+  07-session-handoffs.md
+  08-building-skills.md
 ```
 
 This is the **teaching layer**. Content here explains the ideas behind the
@@ -104,9 +110,10 @@ on the project reads `docs/`. A human learning the methodology reads `guide/`.
 
 ```
 plans/
+  _INDEX.md                 # Plan index with statuses
+  _TEMPLATE.md              # Blank plan template
   active/                   # Plans currently being executed
   completed/                # Archived plans for reference
-  templates/                # Blank plan templates
 ```
 
 Plans are **execution artifacts** with a lifecycle: draft, active, completed.
@@ -123,32 +130,41 @@ and scannable — an agent listing active plans gets only what is in flight.
 
 ```
 Context_Map/
-├── CLAUDE.md                    # Agent entry point
+├── AGENTS.md                    # Universal agent entry point
+├── CLAUDE.md                    # Claude Code entry point
+├── CODEX.md                     # OpenAI Codex entry point
 ├── README.md                    # Human entry point
+├── ARCHITECTURE.md              # Architecture summary
 ├── .claude/
 │   ├── settings.json            # Runtime configuration
 │   └── skills/                  # Task-specific agent playbooks
+├── .codex/
+│   └── setup.sh                 # Codex sandbox setup
+├── .cursor/
+│   └── rules/global.mdc         # Cursor rules
+├── .github/
+│   └── copilot-instructions.md  # Copilot entry point
 ├── docs/
-│   ├── INDEX.md                 # Master navigation
+│   ├── _INDEX.md                # Master navigation
 │   ├── architecture/            # Design docs, ADRs
 │   │   ├── OVERVIEW.md          # This file
 │   │   ├── DEPENDENCY_RULES.md  # Layering constraints
 │   │   └── ADR/                 # Architecture Decision Records
 │   ├── golden-rules/            # Standards and conventions
-│   ├── how-to/                  # Step-by-step procedures
-│   └── reference/               # Lookup material
-├── guide/
-│   ├── PHILOSOPHY.md            # Methodology explanation
-│   ├── GETTING_STARTED.md       # First-time walkthrough
-│   ├── PATTERNS.md              # Reusable patterns
-│   ├── ANTI_PATTERNS.md         # What to avoid
-│   └── FAQ.md                   # Common questions
+│   ├── quality/                 # Scorecard and tech debt
+│   ├── workflows/               # Development, PR, testing, docs
+│   ├── agent-guide/             # Onboarding and task recipes
+│   └── session/                 # Session handoff state
+├── guide/                       # Educational content (8 chapters)
 ├── plans/
+│   ├── _INDEX.md                # Plan index
+│   ├── _TEMPLATE.md             # Plan template
 │   ├── active/                  # In-flight execution plans
-│   ├── completed/               # Archived plans
-│   └── templates/               # Plan templates
+│   └── completed/               # Archived plans
 └── scripts/
-    └── validate-structure.sh    # Architecture enforcement
+    ├── check-structure.sh       # Directory and file validation
+    ├── check-doc-freshness.sh   # Freshness tag validation
+    └── check-agent-files.sh     # Agent routing validation
 ```
 
 Each area has a single responsibility:
@@ -171,7 +187,7 @@ validation tools that verify structural invariants.
 
 - **Freshness tags**: Every `.md` file in `docs/` must contain a
   `<!-- reviewed: YYYY-MM-DD -->` tag. The script flags files where the review
-  date exceeds a configurable staleness threshold (default: 90 days).
+  date exceeds a configurable staleness threshold (default: 30 days).
 - **Broken links**: Internal cross-references between documents must resolve.
   A link to `CODING_STANDARDS.md` must point to an existing file.
 - **Entry-point consistency**: `CLAUDE.md` and `README.md` must not define
@@ -190,7 +206,9 @@ problems that deserve human (or agent) judgment.
 ### Running validation
 
 ```bash
-./scripts/validate-structure.sh
+./scripts/check-structure.sh
+./scripts/check-doc-freshness.sh
+./scripts/check-agent-files.sh
 ```
 
 The script returns exit code 0 when all checks pass and non-zero when any

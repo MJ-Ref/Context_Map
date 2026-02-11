@@ -119,7 +119,7 @@ break links in operational documentation. Plans reference `docs/` only to say
 **What this means in practice**:
 - A plan may say: "All code must follow `docs/golden-rules/CODING_STANDARDS.md`."
 - A plan must also include its own goal, scope, tasks, and acceptance criteria — it must not require reading three other plans to understand what to do.
-- `docs/INDEX.md` must not contain links to specific plans.
+- `docs/_INDEX.md` must not contain links to specific plans.
 
 ---
 
@@ -137,8 +137,8 @@ a freshness tag is stale, the right response is to review the document — not t
 silently update the date.
 
 **What this means in practice**:
-- `validate-structure.sh` may report: "CODING_STANDARDS.md reviewed tag is 120 days old."
-- `validate-structure.sh` must not update the tag automatically.
+- `check-doc-freshness.sh` may report: "CODING_STANDARDS.md reviewed tag is 45 days old."
+- `check-doc-freshness.sh` must not update the tag automatically.
 - Scripts exit with non-zero codes on violations, making them suitable for CI gates.
 
 ---
@@ -177,7 +177,7 @@ updates to the standard will not propagate to the skill. By referencing
 
 ## Enforcement
 
-These rules are validated by `scripts/validate-structure.sh`. Violations are
+These rules are validated by `scripts/check-structure.sh`. Violations are
 reported as warnings or errors depending on severity. The validation runs in
 CI and can be used as a pre-commit hook.
 

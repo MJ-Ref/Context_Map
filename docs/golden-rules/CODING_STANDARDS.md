@@ -14,7 +14,7 @@ point, not a mandate.
 ### Files and directories
 
 - Use `UPPER_SNAKE_CASE` for documentation files: `CODING_STANDARDS.md`, `OVERVIEW.md`.
-- Use `lower-kebab-case` for script files: `validate-structure.sh`, `check-links.sh`.
+- Use `lower-kebab-case` for script files: `check-structure.sh`, `check-doc-freshness.sh`.
 - Use `lower_snake_case` for source code files (adapt to your language's convention).
 - Directory names are always `lower-kebab-case` or `lower_snake_case` — never mixed.
 
@@ -74,7 +74,7 @@ This tag asserts: "A human or agent reviewed this document for accuracy on this
 date." It is not updated automatically — it is updated deliberately after
 review.
 
-**Staleness threshold**: Documents not reviewed within 90 days are flagged by
+**Staleness threshold**: Documents not reviewed within 30 days are flagged by
 validation scripts. This threshold is configurable in the validation script.
 
 ### Section structure
@@ -151,7 +151,7 @@ Refs: #issue-number
 ### Review
 
 - PRs should be reviewable in under 30 minutes. If a PR is too large, split it.
-- Every PR must pass validation scripts (`scripts/validate-structure.sh`) before merge.
+- Every PR must pass validation scripts (`scripts/check-structure.sh`) before merge.
 - At least one approval required before merging (adapt to your team size).
 
 ---

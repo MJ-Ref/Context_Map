@@ -31,7 +31,7 @@ check_routes_to_docs() {
   # Check that the file references docs/
   if grep -q "docs/" "$file"; then
     PASS=$((PASS + 1))
-    [ "$VERBOSE" = "--verbose" ] && echo "  ✓ $file routes to docs/"
+    if [ "$VERBOSE" = "--verbose" ]; then echo "  ✓ $file routes to docs/"; fi
   else
     FAIL=$((FAIL + 1))
     ERRORS+=("  ✗ $file does not reference docs/")

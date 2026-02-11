@@ -18,33 +18,37 @@ Do not skip any of these steps. The sequence matters: root agent file first, the
 Context_Map/
 ├── AGENTS.md / CLAUDE.md    # Root agent file — start here every session
 ├── docs/
+│   ├── _INDEX.md            # Master navigation with freshness dates
+│   ├── architecture/        # System design and ADRs
+│   │   └── ADR/             # Architecture Decision Records
+│   ├── golden-rules/        # Principles and coding standards
+│   ├── quality/             # Scorecard and tech debt
+│   ├── workflows/           # Development, PR, testing, doc processes
 │   ├── agent-guide/         # Orientation and task recipes (you are here)
 │   │   ├── ONBOARDING.md
 │   │   └── COMMON_TASKS.md
-│   ├── session/             # Live session state
-│   │   └── SESSION_HANDOFF.md
-│   ├── plans/               # Execution plans (active/, completed/, templates/)
-│   │   └── _INDEX.md
-│   └── decisions/           # Architecture Decision Records
-│       └── _INDEX.md
+│   └── session/             # Live session state
+│       └── SESSION_HANDOFF.md
+├── plans/                   # Execution plans (active/, completed/)
+│   ├── _INDEX.md
+│   └── _TEMPLATE.md
 ├── guide/                   # Static reference — the methodology itself
 │   └── ...                  # DO NOT modify these files
-├── scripts/                 # Validation and maintenance utilities
-│   └── ...
-└── src/                     # Application source code
+└── scripts/                 # Validation and maintenance utilities
+    └── ...
 ```
 
 ### What lives where
 
 | Directory | Purpose | Mutability |
 |---|---|---|
+| `docs/` | Operational truth (system of record) | Updated as project evolves |
 | `docs/agent-guide/` | Agent orientation and task recipes | Rarely changes |
 | `docs/session/` | Session handoff, scratch state | Updated every session |
-| `docs/plans/` | Execution plans for current work | Updated as work progresses |
-| `docs/decisions/` | Architecture Decision Records | Append-only |
+| `docs/architecture/ADR/` | Architecture Decision Records | Append-only |
+| `plans/` | Execution plans for current work | Updated as work progresses |
 | `guide/` | The methodology reference | **Read-only for agents** |
-| `scripts/` | Validation, linting, maintenance | Changed only when tooling evolves |
-| `src/` | Application source code | Changed during feature/fix work |
+| `scripts/` | Validation and enforcement | Changed only when tooling evolves |
 
 ## Key Principles
 
@@ -60,7 +64,7 @@ Every fact lives in exactly one place. If a process is documented in `COMMON_TAS
 Documentation is not an afterthought — it is the system itself. Plans, decisions, and handoffs are tracked in Markdown files under version control. If it is not written down, it did not happen.
 
 ### Freshness Dates
-Every document carries a `<!-- reviewed: YYYY-MM-DD -->` tag near the top. When you edit a document, update this tag to today's date. When you read a document and the tag is more than 90 days old, flag it for review.
+Every document carries a `<!-- reviewed: YYYY-MM-DD -->` tag near the top. When you edit a document, update this tag to today's date. When you read a document and the tag is more than 30 days old, flag it for review.
 
 ## How to Navigate
 
@@ -71,7 +75,7 @@ Follow this path to find any information in the repo:
 3. **Open the `_INDEX.md`** for that section. Index files list every document in their directory with a one-line description.
 4. **Open the specific document** you need.
 
-If you cannot find something after following this path, it probably does not exist yet. Create it in the appropriate location following the templates in `docs/plans/templates/`.
+If you cannot find something after following this path, it probably does not exist yet. Create it in the appropriate location following the template in `plans/_TEMPLATE.md`.
 
 ## Session Protocol
 
@@ -93,7 +97,7 @@ These are hard rules. Violating them creates drift, confusion, and broken workfl
 - **Do not skip freshness dates.** Every document you create or edit must have an up-to-date `<!-- reviewed: YYYY-MM-DD -->` tag. No exceptions.
 - **Do not skip the handoff.** Even if your session was short or you hit a dead end, update the handoff document.
 - **Do not read the entire repo at session start.** Follow progressive disclosure. Read the root file, the handoff, and then only the docs relevant to your current task.
-- **Do not create files outside the established structure.** New docs go in `docs/`. New plans go in `docs/plans/`. New decisions go in `docs/decisions/`. Do not invent new top-level directories.
+- **Do not create files outside the established structure.** New docs go in `docs/`. New plans go in `plans/active/`. New decisions go in `docs/architecture/ADR/`. Do not invent new top-level directories.
 - **Do not make architectural decisions without recording them.** If you choose between two approaches, write an ADR. Future agents need to know why, not just what.
 
 ## Quick Reference
@@ -103,8 +107,8 @@ These are hard rules. Violating them creates drift, confusion, and broken workfl
 | Start a new session | `docs/session/SESSION_HANDOFF.md` |
 | Find a task recipe | `docs/agent-guide/COMMON_TASKS.md` |
 | Understand the methodology | `guide/` (read-only) |
-| Create an execution plan | `docs/plans/templates/` |
-| Record a decision | `docs/decisions/` |
+| Create an execution plan | `plans/_TEMPLATE.md` → `plans/active/` |
+| Record a decision | `docs/architecture/ADR/` |
 | Run validation checks | `scripts/` |
 | Find anything else | Root agent file routing table |
 

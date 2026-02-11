@@ -4,7 +4,7 @@
 
 > **Purpose:** Scoring rubric for auditing repository quality.
 > Use this scorecard to evaluate the health of any Context_Map project.
-> Run audits with `scripts/check-quality.sh` or score manually using the dimensions below.
+> Score manually using the dimensions below, supplemented by automated validation scripts.
 
 ## Scoring Dimensions
 
@@ -92,7 +92,7 @@ Code standards, test coverage, and debt management. For template repos, structur
 ```
 Overall = (Documentation * 0.30)
         + (Structure     * 0.25)
-        + (Plans         * 0.25)
+        + (Plans         * 0.20)
         + (Code Quality  * 0.25)
 ```
 

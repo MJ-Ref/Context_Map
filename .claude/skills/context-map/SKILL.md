@@ -21,14 +21,15 @@ plan templates, and quality tracking documents.
 
 **What it creates:**
 
-- Root agent entry points: `AGENTS.md`, `CLAUDE.md`, `.cursorrules`, `.github/copilot-instructions.md`
+- Root agent entry points: `AGENTS.md`, `CLAUDE.md`, `CODEX.md`, `.cursorrules`, `.github/copilot-instructions.md`
 - Documentation directory: `docs/` with `_INDEX.md` and subdirectories for architecture,
-  onboarding, runbooks, session handoff, and ADRs
-- Plans directory: `plans/` with `_INDEX.md` and `_TEMPLATE.md`
-- Guide directory: `guide/` with `CONTRIBUTING.md` and `STYLE_GUIDE.md`
-- Scripts directory: `scripts/` for automation tooling
+  golden-rules, quality, workflows, agent-guide, and session
+- Plans directory: `plans/` with `_INDEX.md`, `_TEMPLATE.md`, `active/`, `completed/`
+- Guide directory: `guide/` with `README.md` and 8 educational chapters
+- Scripts directory: `scripts/` with validation scripts (`check-structure.sh`, `check-doc-freshness.sh`, `check-agent-files.sh`)
 - Quality files: `docs/quality/QUALITY_SCORECARD.md` and `docs/quality/TECH_DEBT_REGISTER.md`
 - Claude skill definitions: `.claude/` directory with skill configurations
+- Additional agent configs: `.codex/setup.sh`, `.cursor/rules/global.mdc`
 
 See `references/directory-spec.md` for the complete directory specification including
 which entries are required vs optional and the purpose of each file.
@@ -60,8 +61,8 @@ compliance report with a score and remediation suggestions.
 
 - **Structure compliance** -- Verifies all required directories and files exist.
 - **Agent routing** -- Confirms each agent entry point (`AGENTS.md`, `CLAUDE.md`,
-  `.cursorrules`, `copilot-instructions.md`) routes to `docs/` rather than
-  duplicating content inline.
+  `CODEX.md`, `.cursorrules`, `copilot-instructions.md`) routes to `docs/` rather
+  than duplicating content inline.
 - **Documentation freshness** -- Checks that every doc has a freshness date and
   that no document is older than 30 days.
 - **Quality tracking** -- Validates that `QUALITY_SCORECARD.md` and

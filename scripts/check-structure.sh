@@ -15,14 +15,14 @@ check_exists() {
 
   if [ "$type" = "dir" ] && [ -d "$path" ]; then
     PASS=$((PASS + 1))
-    [ "$VERBOSE" = "--verbose" ] && echo "  ✓ $path"
+    if [ "$VERBOSE" = "--verbose" ]; then echo "  ✓ $path"; fi
   elif [ "$type" = "file" ] && [ -f "$path" ]; then
     PASS=$((PASS + 1))
-    [ "$VERBOSE" = "--verbose" ] && echo "  ✓ $path"
+    if [ "$VERBOSE" = "--verbose" ]; then echo "  ✓ $path"; fi
   else
     FAIL=$((FAIL + 1))
     ERRORS+=("  ✗ Missing $type: $path")
-    [ "$VERBOSE" = "--verbose" ] && echo "  ✗ Missing $type: $path"
+    if [ "$VERBOSE" = "--verbose" ]; then echo "  ✗ Missing $type: $path"; fi
   fi
 }
 
