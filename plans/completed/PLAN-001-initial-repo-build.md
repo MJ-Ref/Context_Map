@@ -85,7 +85,7 @@ Build in 8 phases, progressing from foundation (git init, core entry files) thro
 
 ### Phase 6: Guide Chapters
 
-- [x] **Step 6.1:** Write 7 chapters (01 through 07) + `guide/README.md`
+- [x] **Step 6.1:** Write 8 chapters (01 through 08) + `guide/README.md`
   - *Acceptance:* Each chapter follows Problem → Principle → Implementation → Adaptation structure
 
 ### Phase 7: Enforcement Scripts

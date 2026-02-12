@@ -95,6 +95,7 @@ guide/
   05-quality-and-enforcement.md
   06-doc-gardening.md
   07-session-handoffs.md
+  08-building-skills.md
 ```
 
 This is the **teaching layer**. Content here explains the ideas behind the
@@ -154,7 +155,7 @@ Context_Map/
 │   ├── workflows/               # Development, PR, testing, docs
 │   ├── agent-guide/             # Onboarding and task recipes
 │   └── session/                 # Session handoff state
-├── guide/                       # Educational content (7 chapters)
+├── guide/                       # Educational content (8 chapters)
 ├── plans/
 │   ├── _INDEX.md                # Plan index
 │   ├── _TEMPLATE.md             # Plan template

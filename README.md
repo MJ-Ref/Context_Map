@@ -44,6 +44,7 @@ Start with `guide/README.md` for the educational content, or browse the chapters
 5. [Quality & Enforcement](guide/05-quality-and-enforcement.md)
 6. [Doc Gardening](guide/06-doc-gardening.md)
 7. [Session Handoffs](guide/07-session-handoffs.md)
+8. [Building Skills](guide/08-building-skills.md)
 
 ### Audit an Existing Project
 
