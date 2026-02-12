@@ -12,6 +12,9 @@
 | [OVERVIEW.md](architecture/OVERVIEW.md) | System architecture narrative | 2026-02-11 |
 | [DEPENDENCY_RULES.md](architecture/DEPENDENCY_RULES.md) | Module and layer dependency constraints | 2026-02-11 |
 | [ADR/000-template.md](architecture/ADR/000-template.md) | Architecture Decision Record template | 2026-02-11 |
+| [ADR/001-five-agent-entry-points.md](architecture/ADR/001-five-agent-entry-points.md) | Why five routing files instead of one or duplicated content | 2026-02-11 |
+| [ADR/002-thirty-day-freshness-default.md](architecture/ADR/002-thirty-day-freshness-default.md) | Why 30 days is the default freshness threshold | 2026-02-11 |
+| [ADR/003-plans-at-top-level.md](architecture/ADR/003-plans-at-top-level.md) | Why plans/ is top-level, not under docs/ | 2026-02-11 |
 
 ## Golden Rules
 
