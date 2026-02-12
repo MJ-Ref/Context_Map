@@ -32,7 +32,7 @@ Draft  ──>  Active  ──>  Completed
 
 | ID | Title | Final Status | Owner | Completed |
 |----|-------|--------------|-------|-----------|
-| *No completed plans yet* | | | | |
+| PLAN-001 | Initial repository build | Completed | Claude Opus 4.6 + MJ | 2026-02-11 |
 
 ## How to Create a New Plan
 
