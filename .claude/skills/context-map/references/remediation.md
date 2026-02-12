@@ -120,3 +120,29 @@ index is incomplete.
 2. If outdated, run `/session-handoff` to regenerate from current context.
 3. Ensure it contains at minimum: summary, next steps, and files modified.
 4. Update the `<!-- reviewed: YYYY-MM-DD -->` tag to today's date.
+
+---
+
+## Index Drift
+
+**Problem:** `docs/_INDEX.md` does not list a document that exists under `docs/`.
+
+**Fix:**
+
+1. Add a row under the appropriate section in `docs/_INDEX.md` with a link to the
+   doc and a one-line purpose statement.
+2. Ensure the newly listed doc includes a `<!-- reviewed: YYYY-MM-DD -->` tag.
+
+---
+
+## Guide Violations
+
+**Problem:** An agent modified files under `guide/`.
+
+**Fix:**
+
+1. Revert the changes. `guide/` is educational reference material and is read-only
+   for agents.
+2. If the guide genuinely needs an update, record the need in
+   `docs/session/SESSION_HANDOFF.md` as an open question and handle it as a
+   deliberate maintenance task.
