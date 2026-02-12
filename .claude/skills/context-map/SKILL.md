@@ -25,7 +25,7 @@ plan templates, and quality tracking documents.
 - Documentation directory: `docs/` with `_INDEX.md` and subdirectories for architecture,
   golden-rules, quality, workflows, agent-guide, and session
 - Plans directory: `plans/` with `_INDEX.md`, `_TEMPLATE.md`, `active/`, `completed/`
-- Guide directory: `guide/` with `README.md` and 8 educational chapters
+- Guide directory: `guide/` with `README.md` and 7 educational chapters
 - Scripts directory: `scripts/` with validation scripts (`check-structure.sh`, `check-doc-freshness.sh`, `check-agent-files.sh`)
 - Quality files: `docs/quality/QUALITY_SCORECARD.md` and `docs/quality/TECH_DEBT_REGISTER.md`
 - Claude skill definitions: `.claude/` directory with skill configurations

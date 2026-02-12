@@ -238,7 +238,7 @@ the draft, adjusts any details, and commits it.
 
 The skill automates the mechanical parts of handoff creation (gathering facts)
 while preserving the agent's judgment for the interpretive parts (summarizing
-decisions, prioritizing next steps). See Chapter 8 for more on building skills.
+decisions, prioritizing next steps).
 
 ---
 

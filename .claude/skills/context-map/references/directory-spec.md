@@ -86,7 +86,6 @@ guide/
   05-quality-and-enforcement.md (R)  Quality scoring and enforcement.
   06-doc-gardening.md        (R)  Documentation maintenance.
   07-session-handoffs.md     (R)  Session continuity pattern.
-  08-building-skills.md      (R)  Building agent skills.
 ```
 
 The `guide/` directory is **educational and isolated**. Agents never modify it.

@@ -42,7 +42,6 @@ this pattern), **Principle** (the core idea), **Implementation** (how to do it),
 | [05](05-quality-and-enforcement.md) | Quality Scoring and Enforcement | Defining quality as measurable dimensions with automated checks and debt tracking |
 | [06](06-doc-gardening.md) | Documentation Gardening | Treating docs as a living system with freshness detection and continuous maintenance |
 | [07](07-session-handoffs.md) | Session Handoffs for Continuity | Capturing session state so the next agent resumes without loss of context |
-| [08](08-building-skills.md) | Building Claude Code Skills | Encoding repeatable workflows as slash-command skills with instructions and reference data |
 
 ## Important: This Directory Is Read-Only
 

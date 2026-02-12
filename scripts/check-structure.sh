@@ -92,7 +92,6 @@ check_exists "guide/04-execution-plans.md" "file"
 check_exists "guide/05-quality-and-enforcement.md" "file"
 check_exists "guide/06-doc-gardening.md" "file"
 check_exists "guide/07-session-handoffs.md" "file"
-check_exists "guide/08-building-skills.md" "file"
 
 # Skills structure
 echo "Skills:"
