@@ -22,20 +22,32 @@ Context_Map is a repository template that structures projects for AI agent produ
 
 ## Quick Start
 
+### AI Agents
+
+Start with your dedicated entry file — it has your orientation, constraints,
+and routing into `docs/`:
+
+| Agent | Entry Point |
+|-------|-------------|
+| Any / Universal | [`AGENTS.md`](AGENTS.md) |
+| Claude Code | [`CLAUDE.md`](CLAUDE.md) |
+| OpenAI Codex | [`CODEX.md`](CODEX.md) |
+| Cursor | [`.cursorrules`](.cursorrules) → [`.cursor/rules/global.mdc`](.cursor/rules/global.mdc) |
+| GitHub Copilot | [`.github/copilot-instructions.md`](.github/copilot-instructions.md) |
+
 ### Use as a Template
 
 ```bash
-# Clone and use as your project's starting structure
 gh repo create my-project --template context-map/context-map
 cd my-project
 
-# Or use the Claude Code skill to scaffold into an existing project
+# Or scaffold into an existing project with Claude Code:
 # /context-map scaffold
 ```
 
-### Read as a Guide
+### Read the Guide
 
-Start with `guide/README.md` for the educational content, or browse the chapters:
+Start with [`guide/README.md`](guide/README.md), or browse individual chapters:
 
 1. [Why Agent Legibility](guide/01-why-agent-legibility.md)
 2. [Progressive Disclosure](guide/02-progressive-disclosure.md)
@@ -45,13 +57,6 @@ Start with `guide/README.md` for the educational content, or browse the chapters
 6. [Doc Gardening](guide/06-doc-gardening.md)
 7. [Session Handoffs](guide/07-session-handoffs.md)
 8. [Building Skills](guide/08-building-skills.md)
-
-### Audit an Existing Project
-
-```bash
-# Use the Claude Code skill to check your project against the standard
-# /context-map audit
-```
 
 ## Repository Structure
 
@@ -90,23 +95,24 @@ Context_Map/
 
 See `docs/golden-rules/PRINCIPLES.md` for the full set.
 
-## Validation
+## Setup & Development
+
+### Validation
+
+Run these from the repository root before committing changes:
 
 ```bash
-# Check all required files exist
-scripts/check-structure.sh
-
-# Check documentation freshness
-scripts/check-doc-freshness.sh
-
-# Verify agent entry points route to docs/
-scripts/check-agent-files.sh
+scripts/check-structure.sh        # All required files and directories exist
+scripts/check-doc-freshness.sh    # Every doc has a current review date
+scripts/check-agent-files.sh      # Agent entry points route correctly
 ```
 
-## Claude Code Skills
+See `docs/workflows/DEVELOPMENT.md` for the full development workflow.
+
+### Claude Code Skills
 
 - `/context-map scaffold` — scaffold the Context_Map structure in a new project
-- `/context-map audit` — audit against the Context_Map standard
+- `/context-map audit` — audit an existing project against the standard
 - `/session-handoff` — generate a session handoff document
 
 ## Contributing

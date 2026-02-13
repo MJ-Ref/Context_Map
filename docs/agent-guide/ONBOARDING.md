@@ -1,13 +1,13 @@
 # Agent Onboarding Guide
 
-<!-- reviewed: 2026-02-11 -->
+<!-- reviewed: 2026-02-13 -->
 
 Welcome to **Context_Map** — an agent-first repository template that demonstrates every pattern it teaches. This repo serves as both a working template you can fork and a living guide for agent-led development. Everything here is designed so that an AI agent can orient itself, do meaningful work, and hand off cleanly to the next session.
 
 ## First Steps
 
-1. **Read the root agent file.** Open `AGENTS.md` or `CLAUDE.md` at the repository root. That file contains the top-level routing table and ground rules. It is the single entry point for every session.
-2. **Read this document.** You are here. This guide fills in the context you need beyond the root agent file.
+1. **Read your agent entry file.** Open your dedicated entry file at the repository root (`CLAUDE.md`, `CODEX.md`, `.cursorrules`, `.github/copilot-instructions.md`, or `AGENTS.md` for any other agent). It contains the routing table and key constraints. If you arrived via `README.md`, the "AI Agents" section there will point you to the right file.
+2. **Read this document.** You are here. This guide fills in the context you need beyond the entry file.
 3. **Check the session handoff.** Open `docs/session/SESSION_HANDOFF.md` to see what the previous session accomplished, what is in progress, and what to do next.
 
 Do not skip any of these steps. The sequence matters: root agent file first, then onboarding, then handoff.

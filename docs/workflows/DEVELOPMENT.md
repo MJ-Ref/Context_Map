@@ -1,10 +1,42 @@
 # Development Workflow
 
-<!-- reviewed: 2026-02-11 -->
+<!-- reviewed: 2026-02-13 -->
 
 > **Purpose:** The end-to-end workflow for making changes in a Context_Map project.
 > Every change follows this cycle: plan, implement, test, document, review.
 > This workflow applies to agents and humans alike.
+
+## Prerequisites & Setup
+
+### For AI agents
+
+Read your dedicated entry file before doing anything else:
+
+| Agent | Entry Point |
+|-------|-------------|
+| Any / Universal | `AGENTS.md` |
+| Claude Code | `CLAUDE.md` |
+| OpenAI Codex | `CODEX.md` |
+| Cursor | `.cursorrules` → `.cursor/rules/global.mdc` |
+| GitHub Copilot | `.github/copilot-instructions.md` |
+
+Your entry file contains the routing table into `docs/`, session protocol, and key constraints. Follow `docs/agent-guide/ONBOARDING.md` for full orientation.
+
+### For developers
+
+```bash
+# Clone (or fork) the repository
+git clone <repo-url> && cd <repo-name>
+
+# Verify the structure is intact
+scripts/check-structure.sh
+scripts/check-doc-freshness.sh
+scripts/check-agent-files.sh
+```
+
+No build step or dependency install is required for the template itself. Projects that adopt Context_Map as a template should replace this section with their own setup commands (e.g., `npm install`, `pip install -r requirements.txt`).
+
+---
 
 ## Branch Strategy
 
