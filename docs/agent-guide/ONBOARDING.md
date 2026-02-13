@@ -10,13 +10,14 @@ Welcome to **Context_Map** — an agent-first repository template that demonstra
 2. **Read this document.** You are here. This guide fills in the context you need beyond the entry file.
 3. **Check the session handoff.** Open `docs/session/SESSION_HANDOFF.md` to see what the previous session accomplished, what is in progress, and what to do next.
 
-Do not skip any of these steps. The sequence matters: root agent file first, then onboarding, then handoff.
+Do not skip any of these steps. The sequence matters: entry file first, then onboarding, then handoff.
 
 ## Repository Structure
 
 ```
 Context_Map/
-├── AGENTS.md / CLAUDE.md    # Root agent file — start here every session
+├── AGENTS.md / CLAUDE.md /  # Agent entry files — start here every session
+│   CODEX.md / .cursorrules  # (see your specific file)
 ├── docs/
 │   ├── _INDEX.md            # Master navigation with freshness dates
 │   ├── architecture/        # System design and ADRs
@@ -55,7 +56,7 @@ Context_Map/
 These principles govern how this repository works. Internalize them before making changes.
 
 ### Progressive Disclosure
-Not everything needs to be read up front. The root agent file gives you a routing table. Follow the pointers to the specific doc you need. Do not read every file in the repo at session start — read only what is relevant to the current task.
+Not everything needs to be read up front. Your agent entry file gives you a routing table. Follow the pointers to the specific doc you need. Do not read every file in the repo at session start — read only what is relevant to the current task.
 
 ### Single Source of Truth
 Every fact lives in exactly one place. If a process is documented in `COMMON_TASKS.md`, other files should link to it rather than restate it. When you find duplicated content, consolidate it and replace the duplicate with a pointer.
@@ -70,7 +71,7 @@ Every document carries a `<!-- reviewed: YYYY-MM-DD -->` tag near the top. When 
 
 Follow this path to find any information in the repo:
 
-1. **Start at the root agent file** (`AGENTS.md` or `CLAUDE.md`). It contains the master routing table.
+1. **Start at your agent entry file** (`CLAUDE.md`, `CODEX.md`, `.cursorrules`, `.github/copilot-instructions.md`, or `AGENTS.md`). It contains the routing table.
 2. **Find the right section** in the routing table. Each entry points to an `_INDEX.md` or a specific document.
 3. **Open the `_INDEX.md`** for that section. Index files list every document in their directory with a one-line description.
 4. **Open the specific document** you need.
@@ -110,7 +111,7 @@ These are hard rules. Violating them creates drift, confusion, and broken workfl
 | Create an execution plan | `plans/_TEMPLATE.md` → `plans/active/` |
 | Record a decision | `docs/architecture/ADR/` |
 | Run validation checks | `scripts/` |
-| Find anything else | Root agent file routing table |
+| Find anything else | Your agent entry file routing table |
 
 ---
 

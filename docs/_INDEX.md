@@ -1,6 +1,6 @@
 # docs/ — Master Index
 
-<!-- reviewed: 2026-02-11 -->
+<!-- reviewed: 2026-02-13 -->
 
 > **Purpose:** Master navigation for all operational documentation.
 > This is the system of record. Agents read AND update these docs as the project evolves.
@@ -34,17 +34,17 @@
 
 | Document | Purpose | Last Reviewed |
 |----------|---------|---------------|
-| [DEVELOPMENT.md](workflows/DEVELOPMENT.md) | Development workflow and conventions | 2026-02-11 |
+| [DEVELOPMENT.md](workflows/DEVELOPMENT.md) | Development workflow and conventions | 2026-02-13 |
 | [PR_REVIEW.md](workflows/PR_REVIEW.md) | Pull request review process | 2026-02-11 |
-| [TESTING.md](workflows/TESTING.md) | Testing strategy and guidelines | 2026-02-11 |
+| [TESTING.md](workflows/TESTING.md) | Testing strategy and guidelines | 2026-02-13 |
 | [DOC_GARDENING.md](workflows/DOC_GARDENING.md) | Documentation maintenance process | 2026-02-11 |
 
 ## Agent Guide
 
 | Document | Purpose | Last Reviewed |
 |----------|---------|---------------|
-| [ONBOARDING.md](agent-guide/ONBOARDING.md) | New agent orientation | 2026-02-11 |
-| [COMMON_TASKS.md](agent-guide/COMMON_TASKS.md) | Recipes for frequent operations | 2026-02-11 |
+| [ONBOARDING.md](agent-guide/ONBOARDING.md) | New agent orientation | 2026-02-13 |
+| [COMMON_TASKS.md](agent-guide/COMMON_TASKS.md) | Recipes for frequent operations | 2026-02-13 |
 
 ## Session
 
