@@ -1,6 +1,6 @@
 # Common Agent Tasks
 
-<!-- reviewed: 2026-02-11 -->
+<!-- reviewed: 2026-02-13 -->
 
 Step-by-step recipes for frequent agent operations. Each recipe is self-contained. Follow the steps in order.
 
@@ -78,7 +78,7 @@ Run these checks before committing significant changes. Execute them from the re
    ```bash
    ./scripts/check-agent-files.sh
    ```
-   Verifies all agent entry points reference docs/ and are within line limits.
+   Verifies routing targets exist, shared routing-table tasks are consistent, and entry files stay concise.
 
 If any check fails, fix the issue before committing. Do not suppress or ignore validation errors.
 

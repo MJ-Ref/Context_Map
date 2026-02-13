@@ -1,6 +1,6 @@
 # Testing Strategy
 
-<!-- reviewed: 2026-02-11 -->
+<!-- reviewed: 2026-02-13 -->
 
 > **Purpose:** Define the testing philosophy and approach for Context_Map projects.
 > In a template repository, the "product" is the structure and documentation itself.
@@ -26,8 +26,8 @@ Structural tests verify that the repo conforms to the Context_Map architecture.
 
 - Required directories exist (`docs/`, `guide/`, `plans/`, `scripts/`)
 - Required subdirectories exist (`docs/architecture/`, `docs/golden-rules/`, etc.)
-- Agent entry files exist (`AGENTS.md`, `CLAUDE.md`, `ARCHITECTURE.md`)
-- `guide/` has not been modified from its reference state
+- Agent entry files exist (`AGENTS.md`, `CLAUDE.md`, `CODEX.md`, `.cursorrules`, `.cursor/rules/global.mdc`, `.github/copilot-instructions.md`)
+- Guide chapter structure exists (`guide/README.md`, `guide/01`-`guide/08`)
 
 ```bash
 scripts/check-structure.sh    # Run before every commit, in CI, and after scaffolding
@@ -45,11 +45,13 @@ Every doc must carry a `<!-- reviewed: YYYY-MM-DD -->` tag. Docs older than 30 d
 
 ```bash
 scripts/check-doc-freshness.sh
+# CI-blocking mode:
+scripts/check-doc-freshness.sh --fail-on-stale
 ```
 
 ### Completeness checks
 
-Every file referenced in a routing table (`AGENTS.md`, `CLAUDE.md`, `docs/_INDEX.md`) must exist and contain meaningful content (not just a heading or empty file).
+Every backticked path referenced in agent entry files must resolve to an existing path.
 
 ```bash
 scripts/check-agent-files.sh
@@ -57,7 +59,7 @@ scripts/check-agent-files.sh
 
 ### Routing consistency
 
-All agent entry files must route to the same targets for the same tasks. If `AGENTS.md` says "Follow development workflow" points to `docs/workflows/DEVELOPMENT.md`, then `CLAUDE.md` must agree.
+Agent entry files that define markdown routing tables must route shared tasks to the same targets. If `AGENTS.md` says "Follow development workflow" points to `docs/workflows/DEVELOPMENT.md`, then `CLAUDE.md`, `CODEX.md`, and other table-based entries must agree.
 
 This is checked as part of `scripts/check-agent-files.sh`.
 
