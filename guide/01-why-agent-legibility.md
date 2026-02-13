@@ -301,7 +301,7 @@ Add AGENTS.md as the universal entry point. Introduce freshness dates and a
 simple validation script. Keep plans informal but tracked.
 
 ### Large team, continuous agent presence
-Implement the full Context_Map structure. Invest in all four entry points,
+Implement the full Context_Map structure. Invest in all five entry points,
 comprehensive docs, execution plans, quality scorecards, and CI-integrated
 validation. At this scale, the upfront investment pays for itself within weeks.
 

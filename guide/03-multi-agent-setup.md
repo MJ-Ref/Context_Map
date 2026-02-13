@@ -8,10 +8,11 @@
 ## The Problem
 
 There is no single AI coding agent that every developer uses. Teams work with
-Claude Code, Cursor, GitHub Copilot, Windsurf, Aider, and others. Each agent
-reads different configuration files:
+Claude Code, OpenAI Codex, Cursor, GitHub Copilot, Windsurf, Aider, and others.
+Each agent reads different configuration files:
 
 - **Claude Code** reads `CLAUDE.md` (and `AGENTS.md`)
+- **OpenAI Codex** reads `CODEX.md` (and often `AGENTS.md`)
 - **Cursor** reads `.cursorrules` (or `.cursor/rules`)
 - **GitHub Copilot** reads `.github/copilot-instructions.md`
 - **Windsurf** reads `.windsurfrules`
@@ -19,7 +20,7 @@ reads different configuration files:
 
 A repository that only supports one agent forces developers using other tools
 to work without guidance. A repository that tries to support all agents by
-duplicating content across five files creates a maintenance nightmare where
+duplicating content across multiple files creates a maintenance nightmare where
 files inevitably drift out of sync.
 
 Here is how drift happens in practice:
@@ -55,11 +56,13 @@ the change automatically because every agent is routed to the same documents.
 The architecture looks like this:
 
 ```
-AGENTS.md ─────────────────┐
-CLAUDE.md ─────────────────┤
-.cursorrules ──────────────┼──── all route to ────> docs/
-.github/copilot-instructions.md ┤                    (single source
-.windsurfrules ────────────┘                          of truth)
+AGENTS.md ─────────────────────────────┐
+CLAUDE.md ─────────────────────────────┤
+CODEX.md ──────────────────────────────┤
+.cursorrules / .cursor/rules/global.mdc ┼──── all route to ────> docs/
+.github/copilot-instructions.md ───────┘                    (single source
+                                                            of truth)
+Optional extras (same pattern): .windsurfrules, custom tool entry files
 ```
 
 The entry files differ only in:
@@ -74,9 +77,9 @@ They are identical in:
 
 ---
 
-## The Four-Entry-Point Pattern
+## The Five-Entry-Point Pattern
 
-Context_Map uses four entry points as a baseline. You can add more for
+Context_Map uses five entry points as a baseline. You can add more for
 additional agents or remove ones you do not need.
 
 ### 1. AGENTS.md -- Universal Entry Point
@@ -157,7 +160,24 @@ Claude-specific features like skill references and session protocols.
 
 **Size target:** 40-80 lines.
 
-### 3. .cursorrules -- Cursor Entry Point
+### 3. CODEX.md -- OpenAI Codex Entry Point
+
+OpenAI Codex sessions use `CODEX.md` as a first-class entry point. Keep it as a
+routing table that mirrors `AGENTS.md`, with Codex-specific session conventions
+if needed.
+
+**Location:** Repository root (`CODEX.md`)
+
+**Format:** Markdown with routing table
+
+**Additional content beyond AGENTS.md:**
+- Codex-specific workflow preferences
+- Session protocol tuned for Codex behavior
+- Commit and validation expectations
+
+**Size target:** 40-80 lines.
+
+### 4. .cursorrules -- Cursor Entry Point
 
 Cursor reads `.cursorrules` from the repository root. The format is typically
 plain text or Markdown. Cursor does not support all Markdown features, so keep
@@ -198,7 +218,7 @@ formatting simple.
 
 **Size target:** 30-60 lines.
 
-### 4. .github/copilot-instructions.md -- GitHub Copilot Entry Point
+### 5. .github/copilot-instructions.md -- GitHub Copilot Entry Point
 
 GitHub Copilot reads instructions from `.github/copilot-instructions.md`. This
 file configures Copilot's behavior for the repository.
@@ -291,9 +311,10 @@ When you add, rename, or move a document in `docs/`:
 1. Update `docs/_INDEX.md` (the master index)
 2. Update the routing table in `AGENTS.md`
 3. Update `CLAUDE.md` if the document is relevant to Claude sessions
-4. Update `.cursorrules` if the document is relevant to Cursor users
-5. Update `.github/copilot-instructions.md` if relevant to Copilot
-6. Run `scripts/check-agent-files.sh` to verify all routing targets resolve
+4. Update `CODEX.md` if the document is relevant to Codex sessions
+5. Update `.cursorrules` / `.cursor/rules/global.mdc` if relevant to Cursor users
+6. Update `.github/copilot-instructions.md` if relevant to Copilot
+7. Run `scripts/check-agent-files.sh` to verify all routing targets resolve
 
 ### Automation with validation scripts
 
@@ -319,7 +340,7 @@ A basic implementation:
 ERRORS=0
 
 # Check each entry file for broken references
-for ENTRY_FILE in AGENTS.md CLAUDE.md .cursorrules .github/copilot-instructions.md; do
+for ENTRY_FILE in AGENTS.md CLAUDE.md CODEX.md .cursorrules .github/copilot-instructions.md; do
   if [ ! -f "$ENTRY_FILE" ]; then
     continue  # Not all entry files are required
   fi
@@ -411,10 +432,10 @@ routing-table pointers.
 ### The copy-paste entry files
 
 ```
-BAD: AGENTS.md, CLAUDE.md, and .cursorrules contain identical 200-line
+BAD: AGENTS.md, CLAUDE.md, CODEX.md, and .cursorrules contain identical 200-line
 content copied between them.
 
-WHY: Three copies of the same text. When one is updated, the others become
+WHY: Four copies of the same text. When one is updated, the others become
 stale. An agent reading a stale copy follows outdated rules.
 
 FIX: Move the shared content to docs/. Each entry file becomes a thin
@@ -462,8 +483,8 @@ To set up multi-agent support in an existing repository:
    routing right here before creating agent-specific variants.
 
 3. **Create agent-specific entry files.** For each agent in use, create the
-   appropriate file (.cursorrules, copilot-instructions.md, etc.). Copy the
-   routing table from AGENTS.md and adapt the format and phrasing.
+   appropriate file (`CODEX.md`, `.cursorrules`, `copilot-instructions.md`,
+   etc.). Copy the routing table from AGENTS.md and adapt the format and phrasing.
 
 4. **Audit for duplication.** Search all entry files for substantive content
    (coding rules, architecture details, process descriptions). Move any you
@@ -514,4 +535,3 @@ most frequently.
 ---
 
 *Previous: [Chapter 2 -- Progressive Disclosure](02-progressive-disclosure.md)*
-

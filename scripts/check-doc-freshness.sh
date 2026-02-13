@@ -5,15 +5,47 @@
 set -euo pipefail
 
 MAX_AGE_DAYS=30
+FAIL_ON_STALE=0
+
+usage() {
+  cat <<EOF
+Usage: scripts/check-doc-freshness.sh [--max-age-days N]
+
+Options:
+  --max-age-days N   Maximum allowed age (in days) for reviewed docs.
+  --fail-on-stale    Exit with status 1 when stale docs are found.
+  -h, --help         Show this help text.
+EOF
+}
 
 while [[ $# -gt 0 ]]; do
-  case $1 in
+  case "$1" in
     --max-age-days)
+      if [[ $# -lt 2 ]]; then
+        echo "Error: --max-age-days requires a numeric value." >&2
+        usage
+        exit 1
+      fi
+      if ! [[ "$2" =~ ^[0-9]+$ ]]; then
+        echo "Error: --max-age-days must be a non-negative integer (got: $2)." >&2
+        usage
+        exit 1
+      fi
       MAX_AGE_DAYS="$2"
       shift 2
       ;;
-    *)
+    --fail-on-stale)
+      FAIL_ON_STALE=1
       shift
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Error: Unknown argument: $1" >&2
+      usage
+      exit 1
       ;;
   esac
 done
@@ -80,6 +112,10 @@ if [ "$FAIL" -gt 0 ]; then
   exit 1
 elif [ "$STALE" -gt 0 ]; then
   echo ""
+  if [ "$FAIL_ON_STALE" -eq 1 ]; then
+    echo "Error: $STALE stale documents found (fail-on-stale enabled)."
+    exit 1
+  fi
   echo "Warning: $STALE stale documents found. Run doc gardening workflow."
   exit 0
 else
