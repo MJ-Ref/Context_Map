@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 # check-doc-freshness.sh — Checks that all docs have review dates and flags stale ones
-# Usage: scripts/check-doc-freshness.sh [--max-age-days 30]
+# Usage: scripts/check-doc-freshness.sh [--max-age-days N] [--fail-on-stale] [--verbose]
 
 set -euo pipefail
 
 MAX_AGE_DAYS=30
 FAIL_ON_STALE=0
+VERBOSE=0
 
 usage() {
   cat <<EOF
@@ -14,6 +15,7 @@ Usage: scripts/check-doc-freshness.sh [--max-age-days N]
 Options:
   --max-age-days N   Maximum allowed age (in days) for reviewed docs.
   --fail-on-stale    Exit with status 1 when stale docs are found.
+  --verbose          Print per-file freshness details.
   -h, --help         Show this help text.
 EOF
 }
@@ -36,6 +38,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --fail-on-stale)
       FAIL_ON_STALE=1
+      shift
+      ;;
+    --verbose)
+      VERBOSE=1
       shift
       ;;
     -h|--help)
@@ -67,6 +73,9 @@ check_freshness() {
   if [ -z "$review_date" ]; then
     FAIL=$((FAIL + 1))
     ERRORS+=("  ✗ No freshness date: $file")
+    if [ "$VERBOSE" -eq 1 ]; then
+      echo "  ✗ missing date: $file"
+    fi
     return
   fi
 
@@ -77,6 +86,9 @@ check_freshness() {
   if [ "$review_ts" = "0" ]; then
     FAIL=$((FAIL + 1))
     ERRORS+=("  ✗ Invalid date format in: $file (found: $review_date)")
+    if [ "$VERBOSE" -eq 1 ]; then
+      echo "  ✗ invalid date: $file ($review_date)"
+    fi
     return
   fi
 
@@ -85,8 +97,14 @@ check_freshness() {
   if [ "$age_days" -gt "$MAX_AGE_DAYS" ]; then
     STALE=$((STALE + 1))
     ERRORS+=("  ⚠ Stale ($age_days days old): $file (reviewed: $review_date)")
+    if [ "$VERBOSE" -eq 1 ]; then
+      echo "  ⚠ stale: $file ($age_days days, reviewed $review_date)"
+    fi
   else
     PASS=$((PASS + 1))
+    if [ "$VERBOSE" -eq 1 ]; then
+      echo "  ✓ fresh: $file ($age_days days, reviewed $review_date)"
+    fi
   fi
 }
 

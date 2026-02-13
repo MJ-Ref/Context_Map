@@ -16,6 +16,7 @@ PASS=0
 FAIL=0
 WARN=0
 ERRORS=()
+TMP_FILES=()
 
 AGENT_FILES=(
   "AGENTS.md"
@@ -40,6 +41,15 @@ trim() {
   value="${value%"${value##*[![:space:]]}"}"
   printf '%s' "$value"
 }
+
+cleanup_temp_files() {
+  local tmp_file
+  for tmp_file in "${TMP_FILES[@]}"; do
+    [ -n "$tmp_file" ] && rm -f "$tmp_file"
+  done
+}
+
+trap cleanup_temp_files EXIT
 
 check_routes_to_docs() {
   local file="$1"
@@ -128,10 +138,49 @@ extract_routing_table_pairs() {
 
     IFS='|' read -r _ col1 col2 _ <<< "$line"
     task=$(trim "$col1")
-    target=$(printf '%s\n' "$col2" | sed -n 's/.*`\([^`][^`]*\)`.*/\1/p')
+    target=$(printf '%s\n' "$col2" | grep -oE '`[^`]+`' | head -n 1 | tr -d '`' || true)
 
     if [ -n "$task" ] && [ -n "$target" ]; then
       printf '%s\t%s\n' "$task" "$target"
+    fi
+  done < "$file"
+}
+
+check_routing_table_target_arity() {
+  local file="$1"
+  local line
+  local stripped
+  local col1
+  local col2
+  local task
+  local target_count
+
+  if [ ! -f "$file" ]; then
+    return
+  fi
+
+  while IFS= read -r line; do
+    case "$line" in
+      \|*) ;;
+      *) continue ;;
+    esac
+
+    stripped="${line//|/}"
+    stripped="${stripped//-/}"
+    stripped="${stripped//:/}"
+    stripped="${stripped// /}"
+    stripped="${stripped//$'\t'/}"
+    if [ -z "$stripped" ]; then
+      continue
+    fi
+
+    IFS='|' read -r _ col1 col2 _ <<< "$line"
+    task=$(trim "$col1")
+    target_count=$(printf '%s\n' "$col2" | grep -oE '`[^`]+`' | wc -l | tr -d ' ' || true)
+
+    if [ "$target_count" -gt 1 ]; then
+      WARN=$((WARN + 1))
+      ERRORS+=("  ⚠ $file routing row \"$task\" has multiple backticked targets; only one target per row is supported")
     fi
   done < "$file"
 }
@@ -147,6 +196,7 @@ check_routing_consistency() {
   local existing_file
 
   map_file=$(mktemp)
+  TMP_FILES+=("$map_file")
 
   for file in "${ROUTING_TABLE_FILES[@]}"; do
     if [ ! -f "$file" ]; then
@@ -179,8 +229,6 @@ check_routing_consistency() {
       fi
     done < <(extract_routing_table_pairs "$file")
   done
-
-  rm -f "$map_file"
 
   if [ "$had_errors" -eq 0 ]; then
     PASS=$((PASS + 1))
@@ -248,6 +296,7 @@ for file in "${AGENT_FILES[@]}"; do
   echo "Checking $file:"
   check_routes_to_docs "$file"
   check_referenced_paths_exist "$file"
+  check_routing_table_target_arity "$file"
   check_no_content_duplication "$file"
   check_no_guide_modification_instructions "$file"
 done
