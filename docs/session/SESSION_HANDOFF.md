@@ -1,6 +1,6 @@
 # Session Handoff
 
-<!-- reviewed: 2026-02-11 -->
+<!-- reviewed: 2026-02-24 -->
 
 > **How to update this document:**
 > This is a LIVE document. Update it at the end of every agent session. Do not append new sections — overwrite the fields below with current information. The previous state is preserved in git history. See `docs/agent-guide/COMMON_TASKS.md` § "Performing a Session Handoff" for the full procedure.
@@ -9,50 +9,74 @@
 
 ## Last Updated
 
-2026-02-11
+2026-02-24
 
 ## Session Summary
 
-Full repository build-out and internal consistency audit. Created all 45+ files across all content zones, then fixed internal drift between skill references, docs, and actual repo structure.
+Completed a deep repository audit and hardening pass focused on enforceability and long-term reliability. Added missing automation (local link validation + CI workflow), aligned operational docs/entry points/skills with the full validation suite, and refreshed quality tracking artifacts.
 
 ## Work Completed
 
-- Created complete repository structure: root entry files, docs/, plans/, guide/, scripts/, .claude/, .codex/, .cursor/, .github/
-- Five agent entry points: AGENTS.md, CLAUDE.md, CODEX.md, .cursorrules, .github/copilot-instructions.md
-- Full docs/ system of record: architecture, golden-rules, quality, workflows, agent-guide, session
-- Eight guide/ chapters covering all Context_Map patterns
-- Three validation scripts: check-structure.sh, check-doc-freshness.sh, check-agent-files.sh
-- Two Claude Code skills: /context-map (scaffold + audit), /session-handoff
-- Plans infrastructure: _INDEX.md, _TEMPLATE.md, active/, completed/
-- Internal consistency audit: fixed all path drift, freshness threshold conflicts, math bugs, and numbering issues
+- Added `scripts/check-doc-links.sh` to validate local Markdown links across the repository
+- Extended `scripts/check-structure.sh` to require the new script and verify ADR numbering continuity
+- Added CI workflow `.github/workflows/validate.yml` to run structure, freshness, routing, and link checks on PRs and pushes to `main`
+- Updated routing and workflow references across entry points and docs to use the full validation suite
+- Updated quality artifacts: `docs/quality/QUALITY_SCORECARD.md` (latest audit snapshot) and `docs/quality/TECH_DEBT_REGISTER.md` (resolved hardening debt items)
+- Added and completed execution plan `PLAN-002` for this hardening effort; updated `plans/_INDEX.md`
 
 ## Work In Progress
 
-- None at this time.
+None.
 
 ## Blocked Items
 
-- None at this time.
+None.
 
 ## Next Steps
 
-1. Test `/context-map audit` on the repo itself to validate the skill works end-to-end
-2. Test `/context-map scaffold` on a fresh directory
-3. Consider adding CI workflow (`.github/workflows/`) to run validation scripts on PRs
-4. Populate the first real execution plan in `plans/active/` if there is upcoming work
+1. Run one live GitHub pull request against this repository to confirm the new validation workflow behavior in hosted CI.
+2. Smoke-test `/context-map scaffold` and `/context-map audit` in a fresh sandbox repo to ensure generated content includes the new validation script/workflow.
+3. Consider adding a dedicated script to validate `docs/_INDEX.md` and `plans/_INDEX.md` coverage automatically.
 
 ## Key Decisions Made
 
-- Five agent entry points (universal AGENTS.md + four platform-specific)
-- 30-day freshness threshold as the default across all docs and scripts
-- `<!-- reviewed: YYYY-MM-DD -->` as the canonical freshness tag format
-- Plans live at top-level `plans/` (not under `docs/`); ADRs live at `docs/architecture/ADR/`
-- 150-line max recommended for agent entry files
-- Scorecard weights: Documentation 30%, Structure 25%, Plans 20%, Code Quality 25%
+- Validation is now enforced both locally and in CI, not just by convention.
+- Freshness enforcement in CI is strict (`--fail-on-stale`) for this repository.
+- Local Markdown link integrity is a first-class quality gate via `scripts/check-doc-links.sh`.
+- Repository hardening work is recorded as `PLAN-002` for traceability.
 
 ## Open Questions
 
-- None at this time.
+None.
+
+## Files Modified
+
+- `scripts/check-doc-links.sh`
+- `scripts/check-structure.sh`
+- `.github/workflows/validate.yml`
+- `README.md`
+- `AGENTS.md`
+- `CLAUDE.md`
+- `CODEX.md`
+- `.cursorrules`
+- `.cursor/rules/global.mdc`
+- `.github/copilot-instructions.md`
+- `docs/_INDEX.md`
+- `docs/architecture/OVERVIEW.md`
+- `docs/architecture/DEPENDENCY_RULES.md`
+- `docs/golden-rules/CODING_STANDARDS.md`
+- `docs/workflows/DEVELOPMENT.md`
+- `docs/workflows/PR_REVIEW.md`
+- `docs/workflows/TESTING.md`
+- `docs/workflows/DOC_GARDENING.md`
+- `docs/agent-guide/COMMON_TASKS.md`
+- `docs/quality/QUALITY_SCORECARD.md`
+- `docs/quality/TECH_DEBT_REGISTER.md`
+- `plans/_INDEX.md`
+- `plans/completed/PLAN-002-repository-hardening-audit.md`
+- `.claude/skills/context-map/SKILL.md`
+- `.claude/skills/context-map/references/checklist.md`
+- `.claude/skills/context-map/references/directory-spec.md`
 
 ---
 

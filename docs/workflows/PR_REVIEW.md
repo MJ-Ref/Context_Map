@@ -1,6 +1,6 @@
 # Pull Request Review Process
 
-<!-- reviewed: 2026-02-11 -->
+<!-- reviewed: 2026-02-24 -->
 
 > **Purpose:** Define how pull requests are reviewed in a Context_Map project.
 > Reviews enforce quality, consistency, and architectural integrity.
@@ -24,6 +24,7 @@ Every reviewer must verify the following before approving a PR.
   - `scripts/check-structure.sh`
   - `scripts/check-doc-freshness.sh`
   - `scripts/check-agent-files.sh`
+  - `scripts/check-doc-links.sh`
 - [ ] New validation or tests added for new functionality where appropriate
 - [ ] No previously passing tests are now failing
 

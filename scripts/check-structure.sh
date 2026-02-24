@@ -26,6 +26,47 @@ check_exists() {
   fi
 }
 
+check_adr_numbering() {
+  local adr_dir="docs/architecture/ADR"
+  local file
+  local base
+  local num
+  local expected=1
+  local found=0
+
+  if [ ! -d "$adr_dir" ]; then
+    return
+  fi
+
+  while IFS= read -r file; do
+    FAIL=$((FAIL + 1))
+    ERRORS+=("  ✗ ADR file does not follow numbering format (NNN-title.md): $file")
+  done < <(find "$adr_dir" -maxdepth 1 -type f -name "*.md" \
+    ! -name "000-template.md" ! -name "[0-9][0-9][0-9]-*.md" | sort)
+
+  while IFS= read -r file; do
+    found=1
+    base=$(basename "$file")
+    num=${base%%-*}
+    num=$((10#$num))
+
+    if [ "$num" -ne "$expected" ]; then
+      FAIL=$((FAIL + 1))
+      ERRORS+=("  ✗ ADR numbering gap: expected $(printf '%03d' "$expected"), found $(printf '%03d' "$num") in $base")
+      expected=$((num + 1))
+      continue
+    fi
+
+    expected=$((expected + 1))
+  done < <(find "$adr_dir" -maxdepth 1 -type f -name "[0-9][0-9][0-9]-*.md" \
+    ! -name "000-template.md" | sort)
+
+  if [ "$found" -eq 1 ]; then
+    PASS=$((PASS + 1))
+    if [ "$VERBOSE" = "--verbose" ]; then echo "  ✓ ADR numbering is sequential"; fi
+  fi
+}
+
 echo "Checking repository structure..."
 echo ""
 
@@ -112,6 +153,11 @@ echo "Scripts:"
 check_exists "scripts/check-structure.sh" "file"
 check_exists "scripts/check-doc-freshness.sh" "file"
 check_exists "scripts/check-agent-files.sh" "file"
+check_exists "scripts/check-doc-links.sh" "file"
+
+# ADR numbering
+echo "ADR numbering:"
+check_adr_numbering
 
 echo ""
 echo "Results: $PASS passed, $FAIL failed"

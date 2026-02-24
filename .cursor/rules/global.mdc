@@ -42,8 +42,9 @@ are routing tables — they point to docs, they never duplicate content.
 2. **`guide/` is read-only.** It explains the patterns. Never modify it.
 3. **`plans/` are temporal.** They move from `active/` to `completed/`. Docs are evergreen.
 4. **Update freshness dates** when you modify any doc: `<!-- reviewed: YYYY-MM-DD -->`.
-5. **Run validation** before committing: `scripts/check-structure.sh` and
-   `scripts/check-agent-files.sh`.
+5. **Run validation** before committing: `scripts/check-structure.sh`,
+   `scripts/check-doc-freshness.sh`, `scripts/check-agent-files.sh`, and
+   `scripts/check-doc-links.sh`.
 6. **Record architectural decisions** in `docs/architecture/ADR/` using the template.
 
 ## Session Protocol
@@ -56,7 +57,7 @@ are routing tables — they point to docs, they never duplicate content.
 ## Commit Conventions
 
 - Use conventional commits: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `test:`
-- Run `scripts/check-structure.sh` before committing
+- Run validation scripts before committing (`scripts/check-structure.sh`, `scripts/check-doc-freshness.sh`, `scripts/check-agent-files.sh`, `scripts/check-doc-links.sh`)
 - Update `<!-- reviewed: YYYY-MM-DD -->` tags on any modified docs
 
 ## File Conventions

@@ -1,6 +1,6 @@
 # Quality Scorecard
 
-<!-- reviewed: 2026-02-11 -->
+<!-- reviewed: 2026-02-24 -->
 
 > **Purpose:** Scoring rubric for auditing repository quality.
 > Use this scorecard to evaluate the health of any Context_Map project.
@@ -27,6 +27,7 @@ Docs are the system of record. This dimension measures whether they can be trust
 **How to check:**
 - Run `scripts/check-doc-freshness.sh` for freshness dates
 - Run `scripts/check-structure.sh` for completeness against the expected layout
+- Run `scripts/check-doc-links.sh` for local cross-reference integrity
 - Manual review for accuracy (compare docs against actual code behavior)
 
 ---
@@ -46,6 +47,7 @@ The repo layout must match the Context_Map architecture. Progressive disclosure 
 **How to check:**
 - Run `scripts/check-structure.sh` for directory compliance
 - Run `scripts/check-agent-files.sh` for routing-table integrity
+- Run `scripts/check-doc-links.sh` for local link integrity across docs/plans/entry files
 
 ---
 
@@ -82,7 +84,7 @@ Code standards, test coverage, and debt management. For template repos, structur
 
 **How to check:**
 - Run any configured linters
-- Run `scripts/check-structure.sh` and `scripts/check-doc-freshness.sh`
+- Run `scripts/check-structure.sh`, `scripts/check-doc-freshness.sh`, `scripts/check-agent-files.sh`, and `scripts/check-doc-links.sh`
 - Review `docs/quality/TECH_DEBT_REGISTER.md` for currency
 
 ---
@@ -116,6 +118,7 @@ Overall = (Documentation * 0.30)
 scripts/check-structure.sh        # Directory and file compliance
 scripts/check-doc-freshness.sh    # Documentation freshness dates
 scripts/check-agent-files.sh      # Routing table integrity
+scripts/check-doc-links.sh        # Local markdown link integrity
 ```
 
 ### Manual audit steps
@@ -130,6 +133,19 @@ scripts/check-agent-files.sh      # Routing table integrity
 - **Full audit:** At least once per month
 - **Spot checks:** After any major structural change
 - **Automated checks:** Run in CI on every pull request
+
+---
+
+## Latest Audit Snapshot (2026-02-24)
+
+| Dimension | Score | Evidence |
+|-----------|-------|----------|
+| Documentation | 5.0 | Freshness tags updated, indexes current, link checks clean |
+| Structure | 5.0 | `scripts/check-structure.sh` passes including ADR sequencing |
+| Plans | 5.0 | Plan index and lifecycle state are current (`PLAN-001`, `PLAN-002`) |
+| Code Quality | 5.0 | Full validation suite passes locally and in CI configuration |
+
+**Overall weighted score:** **5.0 (Excellent)**
 
 ---
 

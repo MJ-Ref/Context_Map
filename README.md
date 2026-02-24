@@ -105,7 +105,10 @@ Run these from the repository root before committing changes:
 scripts/check-structure.sh        # All required files and directories exist
 scripts/check-doc-freshness.sh    # Every doc has a current review date
 scripts/check-agent-files.sh      # Agent entry points route correctly
+scripts/check-doc-links.sh        # Local markdown links resolve
 ```
+
+CI runs the same suite on every pull request via `.github/workflows/validate.yml`.
 
 See `docs/workflows/DEVELOPMENT.md` for the full development workflow.
 

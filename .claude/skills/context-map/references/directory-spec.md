@@ -99,6 +99,7 @@ scripts/
   check-structure.sh         (R)  Validates all required files and directories exist.
   check-doc-freshness.sh     (R)  Checks freshness tags on all docs.
   check-agent-files.sh       (R)  Verifies agent entry points route to docs/.
+  check-doc-links.sh         (R)  Verifies local Markdown links resolve.
 ```
 
 Scripts are **read-only validators**. They report violations but never modify files.

@@ -1,6 +1,6 @@
 # Coding Standards
 
-<!-- reviewed: 2026-02-11 -->
+<!-- reviewed: 2026-02-24 -->
 
 These standards govern how code and documentation are written in this project.
 They are designed to be **agent-friendly**: predictable, machine-readable, and
@@ -14,7 +14,7 @@ point, not a mandate.
 ### Files and directories
 
 - Use `UPPER_SNAKE_CASE` for documentation files: `CODING_STANDARDS.md`, `OVERVIEW.md`.
-- Use `lower-kebab-case` for script files: `check-structure.sh`, `check-doc-freshness.sh`.
+- Use `lower-kebab-case` for script files: `check-structure.sh`, `check-doc-freshness.sh`, `check-doc-links.sh`.
 - Use `lower_snake_case` for source code files (adapt to your language's convention).
 - Directory names are always `lower-kebab-case` or `lower_snake_case` — never mixed.
 
@@ -151,7 +151,7 @@ Refs: #issue-number
 ### Review
 
 - PRs should be reviewable in under 30 minutes. If a PR is too large, split it.
-- Every PR must pass validation scripts (`scripts/check-structure.sh`) before merge.
+- Every PR must pass the full validation suite before merge (`scripts/check-structure.sh`, `scripts/check-doc-freshness.sh`, `scripts/check-agent-files.sh`, `scripts/check-doc-links.sh`).
 - At least one approval required before merging (adapt to your team size).
 
 ---

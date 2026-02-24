@@ -1,6 +1,6 @@
 # Dependency and Layering Rules
 
-<!-- reviewed: 2026-02-11 -->
+<!-- reviewed: 2026-02-24 -->
 
 This document defines the dependency relationships between areas of the
 repository. These rules prevent circular references, information drift, and
@@ -177,9 +177,11 @@ updates to the standard will not propagate to the skill. By referencing
 
 ## Enforcement
 
-These rules are validated by `scripts/check-structure.sh`. Violations are
-reported as warnings or errors depending on severity. The validation runs in
-CI and can be used as a pre-commit hook.
+These rules are validated by the script suite:
+`scripts/check-structure.sh`, `scripts/check-agent-files.sh`,
+`scripts/check-doc-freshness.sh`, and `scripts/check-doc-links.sh`.
+Violations are reported as warnings or errors depending on severity.
+The validation runs in CI and can be used as a pre-commit hook.
 
 When a rule feels constraining, that is usually a signal that content is in
 the wrong zone. Move the content to where it belongs rather than relaxing the

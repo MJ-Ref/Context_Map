@@ -46,7 +46,7 @@ scripts/        → Enforcement and validation scripts
 3. **Five agent entry points** (AGENTS.md, CLAUDE.md, CODEX.md, .cursorrules, copilot-instructions.md) all route to `docs/`.
 4. **plans/ are temporal.** They move from `active/` to `completed/`. Docs are evergreen.
 5. **Update freshness dates** when you modify any doc (format: `<!-- reviewed: YYYY-MM-DD -->`).
-6. **Run validation** before committing: `scripts/check-structure.sh`, `scripts/check-agent-files.sh`.
+6. **Run validation** before committing: `scripts/check-structure.sh`, `scripts/check-doc-freshness.sh`, `scripts/check-agent-files.sh`, `scripts/check-doc-links.sh`.
 
 ## How to Start
 

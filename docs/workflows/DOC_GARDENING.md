@@ -1,6 +1,6 @@
 # Documentation Gardening
 
-<!-- reviewed: 2026-02-11 -->
+<!-- reviewed: 2026-02-24 -->
 
 > **Purpose:** Define the process for maintaining documentation health over time.
 > Docs are the system of record in Context_Map projects (Principle 4).
@@ -65,7 +65,7 @@ The automated detector at `scripts/check-doc-freshness.sh` scans all Markdown fi
 scripts/check-doc-freshness.sh
 ```
 
-Run in CI as a warning (not a hard failure) unless the project has opted into strict freshness enforcement.
+This repository runs freshness checks in strict CI mode (`--fail-on-stale`) via `.github/workflows/validate.yml`.
 
 ---
 
@@ -96,6 +96,7 @@ After updating, run validation to confirm you have not broken anything:
 scripts/check-structure.sh
 scripts/check-doc-freshness.sh
 scripts/check-agent-files.sh
+scripts/check-doc-links.sh
 ```
 
 ### 4. Commit

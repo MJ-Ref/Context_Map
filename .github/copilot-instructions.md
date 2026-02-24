@@ -50,8 +50,9 @@ every file is a live demonstration.
 ## Development Conventions
 
 - **Conventional commits:** `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `test:`
-- **Validation before commit:** Run `scripts/check-structure.sh` and
-  `scripts/check-agent-files.sh` before committing changes
+- **Validation before commit:** Run `scripts/check-structure.sh`,
+  `scripts/check-doc-freshness.sh`, `scripts/check-agent-files.sh`, and
+  `scripts/check-doc-links.sh` before committing changes
 - **Session handoffs:** Update `docs/session/SESSION_HANDOFF.md` at session end
 - **Quality checks:** Validate against `docs/quality/QUALITY_SCORECARD.md`
 

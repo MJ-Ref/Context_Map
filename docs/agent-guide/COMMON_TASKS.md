@@ -1,6 +1,6 @@
 # Common Agent Tasks
 
-<!-- reviewed: 2026-02-13 -->
+<!-- reviewed: 2026-02-24 -->
 
 Step-by-step recipes for frequent agent operations. Each recipe is self-contained. Follow the steps in order.
 
@@ -55,7 +55,7 @@ Step-by-step recipes for frequent agent operations. Each recipe is self-containe
 1. **Edit the content.** Make the necessary changes to the document.
 2. **Update the freshness date.** Change the `<!-- reviewed: YYYY-MM-DD -->` tag to today's date.
 3. **Check for broken links.** If you renamed a file or changed a heading, search the repo for references that need updating.
-4. **Validate.** Run `scripts/check-structure.sh` and `scripts/check-doc-freshness.sh` to check for structural issues.
+4. **Validate.** Run `scripts/check-structure.sh`, `scripts/check-doc-freshness.sh`, and `scripts/check-doc-links.sh` to catch structural/freshness/link issues.
 5. **Commit.** Commit with a message describing what was updated and why.
 
 ## Running Quality Checks
@@ -79,6 +79,12 @@ Run these checks before committing significant changes. Execute them from the re
    ./scripts/check-agent-files.sh
    ```
    Verifies routing targets exist, shared routing-table tasks are consistent, and entry files stay concise.
+
+4. **Markdown link check.**
+   ```bash
+   ./scripts/check-doc-links.sh
+   ```
+   Verifies local Markdown links resolve to real files.
 
 If any check fails, fix the issue before committing. Do not suppress or ignore validation errors.
 
@@ -107,8 +113,8 @@ This is the most important task. Do it at the end of every session without excep
 | Bug fix | Source files, test files, `docs/session/SESSION_HANDOFF.md` |
 | Execution plan | `plans/_TEMPLATE.md`, `plans/active/`, `plans/_INDEX.md` |
 | Architecture decision | `docs/architecture/ADR/` |
-| Doc update | Target doc, `scripts/check-structure.sh` |
-| Quality checks | `scripts/check-structure.sh`, `scripts/check-doc-freshness.sh`, `scripts/check-agent-files.sh` |
+| Doc update | Target doc, `scripts/check-structure.sh`, `scripts/check-doc-links.sh` |
+| Quality checks | `scripts/check-structure.sh`, `scripts/check-doc-freshness.sh`, `scripts/check-agent-files.sh`, `scripts/check-doc-links.sh` |
 | Session handoff | `docs/session/SESSION_HANDOFF.md` |
 
 ---

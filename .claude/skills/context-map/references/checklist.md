@@ -41,6 +41,7 @@ criterion is fully met. Partial compliance counts as a failure.
 - [ ] `scripts/check-structure.sh` exists
 - [ ] `scripts/check-doc-freshness.sh` exists
 - [ ] `scripts/check-agent-files.sh` exists
+- [ ] `scripts/check-doc-links.sh` exists
 - [ ] `ARCHITECTURE.md` exists at project root
 - [ ] `.github/` directory exists
 

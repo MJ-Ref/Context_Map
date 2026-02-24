@@ -1,6 +1,6 @@
 # Architecture Overview
 
-<!-- reviewed: 2026-02-11 -->
+<!-- reviewed: 2026-02-24 -->
 
 This document describes the architecture of Context_Map — a repository template
 designed for agent-first development. The repo is both a working template and a
@@ -164,7 +164,8 @@ Context_Map/
 └── scripts/
     ├── check-structure.sh       # Directory and file validation
     ├── check-doc-freshness.sh   # Freshness tag validation
-    └── check-agent-files.sh     # Agent routing validation
+    ├── check-agent-files.sh     # Agent routing validation
+    └── check-doc-links.sh       # Local markdown link validation
 ```
 
 Each area has a single responsibility:
@@ -190,9 +191,8 @@ validation tools that verify structural invariants.
   date exceeds a configurable staleness threshold (default: 30 days).
 - **Broken links**: Internal cross-references between documents must resolve.
   A link to `CODING_STANDARDS.md` must point to an existing file.
-- **Entry-point consistency**: `CLAUDE.md` and `README.md` must not define
-  rules that contradict `docs/`. The script checks for known anti-patterns
-  (inline policy, duplicated constraints).
+- **Entry-point consistency**: all routing-table entry points must agree on
+  shared tasks and targets. Scripts flag mismatched routes and missing targets.
 - **Directory structure**: Required directories and files must exist. The
   template's skeleton is verified against an expected manifest.
 - **ADR numbering**: ADR files must follow sequential numbering with no gaps.
@@ -209,6 +209,7 @@ problems that deserve human (or agent) judgment.
 ./scripts/check-structure.sh
 ./scripts/check-doc-freshness.sh
 ./scripts/check-agent-files.sh
+./scripts/check-doc-links.sh
 ```
 
 The script returns exit code 0 when all checks pass and non-zero when any

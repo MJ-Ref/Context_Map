@@ -1,6 +1,6 @@
 # Tech Debt Register
 
-<!-- reviewed: 2026-02-11 -->
+<!-- reviewed: 2026-02-24 -->
 
 > **Purpose:** Track known technical debt so it can be prioritized and resolved.
 > This register is the single source of truth for all acknowledged debt in the project.
@@ -10,8 +10,10 @@
 
 | ID | Description | Impact | Effort | Owner | Status | Date Added |
 |----|-------------|--------|--------|-------|--------|------------|
-| _TD-001_ | _Example: Missing validation for X_ | _M_ | _L_ | _unassigned_ | _open_ | _2026-02-11_ |
-| | | | | | | |
+| TD-001 | Validation suite ran manually only (no CI enforcement) | M | L | Codex | resolved | 2026-02-24 |
+| TD-002 | Local Markdown links were not automatically validated | M | L | Codex | resolved | 2026-02-24 |
+
+No open debt items are currently tracked.
 
 > **Impact:** H = High (blocks progress or causes failures), M = Medium (degrades quality or velocity), L = Low (cosmetic or minor inconvenience)
 >
@@ -23,7 +25,7 @@
 
 ## Adding New Entries
 
-1. Assign the next sequential ID (e.g., `TD-002`, `TD-003`)
+1. Assign the next sequential ID (e.g., `TD-003`, `TD-004`)
 2. Write a clear, one-line description of the debt
 3. Assess **Impact** (H/M/L) based on how it affects the project if left unresolved
 4. Assess **Effort** (H/M/L) based on how much work is needed to resolve it

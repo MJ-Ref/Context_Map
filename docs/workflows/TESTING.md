@@ -1,6 +1,6 @@
 # Testing Strategy
 
-<!-- reviewed: 2026-02-13 -->
+<!-- reviewed: 2026-02-24 -->
 
 > **Purpose:** Define the testing philosophy and approach for Context_Map projects.
 > In a template repository, the "product" is the structure and documentation itself.
@@ -63,6 +63,14 @@ Agent entry files that define markdown routing tables must route shared tasks to
 
 This is checked as part of `scripts/check-agent-files.sh`.
 
+### Local link integrity
+
+Local Markdown links in docs, plans, and entry files must resolve to real paths.
+
+```bash
+scripts/check-doc-links.sh
+```
+
 ---
 
 ## Layer 3: Project-Specific Tests
@@ -82,6 +90,7 @@ scripts/
   check-structure.sh          # Layer 1: structural validation
   check-doc-freshness.sh      # Layer 2: freshness validation
   check-agent-files.sh        # Layer 2: routing validation
+  check-doc-links.sh          # Layer 2: local markdown link validation
   check-<your-domain>.sh      # Layer 3: project-specific checks
 ```
 
@@ -93,6 +102,7 @@ scripts/
 scripts/check-structure.sh       # Layer 1
 scripts/check-doc-freshness.sh   # Layer 2
 scripts/check-agent-files.sh     # Layer 2
+scripts/check-doc-links.sh       # Layer 2
 # npm test / pytest / etc.       # Layer 3
 ```
 

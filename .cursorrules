@@ -18,5 +18,5 @@ the modern MDC format:
 1. `docs/` is the system of record — route there, never duplicate
 2. `guide/` is read-only — never modify educational content
 3. Update `<!-- reviewed: YYYY-MM-DD -->` on any doc you change
-4. Run `scripts/check-structure.sh` before committing
+4. Run validation scripts before committing (`scripts/check-structure.sh`, `scripts/check-doc-freshness.sh`, `scripts/check-agent-files.sh`, `scripts/check-doc-links.sh`)
 5. Use conventional commits: `feat:`, `fix:`, `docs:`, `chore:`

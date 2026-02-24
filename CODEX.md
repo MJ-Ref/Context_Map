@@ -38,7 +38,7 @@ When read as documentation, every file is a live demonstration.
 ## Commit Conventions
 
 - Use conventional commits: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `test:`
-- Run `scripts/check-structure.sh` before committing
+- Run validation scripts before committing (`scripts/check-structure.sh`, `scripts/check-doc-freshness.sh`, `scripts/check-agent-files.sh`, `scripts/check-doc-links.sh`)
 - Update `<!-- reviewed: YYYY-MM-DD -->` tags on any modified docs
 
 ## Key Constraints

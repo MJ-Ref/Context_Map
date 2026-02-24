@@ -1,6 +1,6 @@
 # Development Workflow
 
-<!-- reviewed: 2026-02-13 -->
+<!-- reviewed: 2026-02-24 -->
 
 > **Purpose:** The end-to-end workflow for making changes in a Context_Map project.
 > Every change follows this cycle: plan, implement, test, document, review.
@@ -32,6 +32,7 @@ git clone <repo-url> && cd <repo-name>
 scripts/check-structure.sh
 scripts/check-doc-freshness.sh
 scripts/check-agent-files.sh
+scripts/check-doc-links.sh
 ```
 
 No build step or dependency install is required for the template itself. Projects that adopt Context_Map as a template should replace this section with their own setup commands (e.g., `npm install`, `pip install -r requirements.txt`).
@@ -81,16 +82,18 @@ Every change moves through five stages. Do not skip stages.
   scripts/check-structure.sh        # Directory and file layout
   scripts/check-doc-freshness.sh    # Documentation freshness
   scripts/check-agent-files.sh      # Routing table integrity
+  scripts/check-doc-links.sh        # Local markdown link integrity
   ```
 - Run any project-specific tests (linters, unit tests, integration tests).
 - See `docs/workflows/TESTING.md` for the full testing strategy.
+- CI executes the same validation suite on pull requests and pushes to `main` via `.github/workflows/validate.yml`.
 
 ### 4. Document
 
 - Update any docs affected by the change.
 - Update `<!-- reviewed: YYYY-MM-DD -->` tags on every modified doc.
 - If you added a new doc, add it to `docs/_INDEX.md`.
-- If you added new routing targets, update the routing tables in `AGENTS.md` and `CLAUDE.md`.
+- If you added new routing targets, update every routing table entry point (`AGENTS.md`, `CLAUDE.md`, `CODEX.md`, `.cursor/rules/global.mdc`, `.github/copilot-instructions.md`).
 - If you made an architectural decision, create an ADR in `docs/architecture/ADR/`.
 
 ### 5. Review
@@ -128,10 +131,10 @@ This project uses **Conventional Commits**: `<type>(<scope>): <short description
 
 Run through this before every commit:
 
-- [ ] All validation scripts pass (`scripts/check-structure.sh`, `scripts/check-doc-freshness.sh`, `scripts/check-agent-files.sh`)
+- [ ] All validation scripts pass (`scripts/check-structure.sh`, `scripts/check-doc-freshness.sh`, `scripts/check-agent-files.sh`, `scripts/check-doc-links.sh`)
 - [ ] Changed docs have updated `<!-- reviewed: YYYY-MM-DD -->` tags
 - [ ] New docs are registered in `docs/_INDEX.md`
-- [ ] New routing targets are added to `AGENTS.md` and `CLAUDE.md`
+- [ ] New routing targets are added to all entry-point routing tables
 - [ ] Commit message follows conventional commit format
 - [ ] No content duplicated between agent entry files and `docs/`
 - [ ] No modifications to `guide/` (read-only educational content)
@@ -164,6 +167,7 @@ Create a plan when work spans multiple sessions, involves coordinated changes ac
 
 ```
 draft → active → completed
+              └→ abandoned
 ```
 
 | State | Location | Meaning |
@@ -171,6 +175,7 @@ draft → active → completed
 | `draft` | `plans/active/` | Plan is being written; not yet approved for execution |
 | `active` | `plans/active/` | Plan is approved and work is in progress |
 | `completed` | `plans/completed/` | All tasks done; plan moved to archive |
+| `abandoned` | `plans/completed/` | Plan cancelled; reason documented before archival |
 
 ### Plan lifecycle rules
 

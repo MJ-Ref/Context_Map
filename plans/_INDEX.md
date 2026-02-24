@@ -1,6 +1,6 @@
 # plans/ — Execution Plans Index
 
-<!-- reviewed: 2026-02-11 -->
+<!-- reviewed: 2026-02-24 -->
 
 > **Purpose:** Execution plans are first-class artifacts in Context_Map.
 > They capture the what, why, and how of multi-step work — giving agents
@@ -33,11 +33,12 @@ Draft  ──>  Active  ──>  Completed
 | ID | Title | Final Status | Owner | Completed |
 |----|-------|--------------|-------|-----------|
 | PLAN-001 | Initial repository build | Completed | Claude Opus 4.6 + MJ | 2026-02-11 |
+| PLAN-002 | Repository hardening and deep quality audit | Completed | Codex | 2026-02-24 |
 
 ## How to Create a New Plan
 
 1. Copy the template: `cp plans/_TEMPLATE.md plans/active/PLAN-XXX-short-title.md`
-2. Assign the next sequential Plan ID (e.g., `PLAN-001`, `PLAN-002`)
+2. Assign the next sequential Plan ID (e.g., `PLAN-003`, `PLAN-004`)
 3. Fill in all sections — leave no placeholder text in an Active plan
 4. Set status to **Draft** while designing, **Active** when work begins
 5. Add an entry to the **Active Plans** table above
